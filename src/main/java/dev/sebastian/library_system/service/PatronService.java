@@ -9,7 +9,7 @@
 package dev.sebastian.library_system.service;
 
 import dev.sebastian.library_system.dao.LibraryDAO;
-import dev.sebastian.library_system.model.Book;
+import dev.sebastian.library_system.dao.PatronDAO;
 import dev.sebastian.library_system.model.Patron;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,32 +23,32 @@ import java.util.UUID;
 public class PatronService
 {
     // Instance variables
-    private final LibraryDAO libraryDAO;
+    private final PatronDAO patronDAO;
     // ---------------------------------------------------------------------------------
 
     @Autowired
-    public PatronService(@Qualifier("mysql") LibraryDAO libraryDAO)
+    public PatronService(@Qualifier("mysql") PatronDAO patronDAO)
     {
-        this.libraryDAO = libraryDAO;
+        this.patronDAO = patronDAO;
     }
     // ---------------------------------------------------------------------------------
     public int addPatron(Patron patron)
     {
-        return libraryDAO.addPatron(patron);
+        return patronDAO.addPatron(patron);
     }
     // ---------------------------------------------------------------------------------
     public List<Patron> getAllPatrons()
     {
-        return libraryDAO.selectAllPatrons();
+        return patronDAO.selectAllPatrons();
     }
     // ---------------------------------------------------------------------------------
     public Optional<Patron> getPatronByID(UUID patronId)
     {
-        return libraryDAO.selectPatronByID(patronId);
+        return patronDAO.selectPatronByID(patronId);
     }
     // ---------------------------------------------------------------------------------
     public int deletePatron(UUID patronId)
     {
-        return libraryDAO.deletePatronByID(patronId);
+        return patronDAO.deletePatronByID(patronId);
     }
 }

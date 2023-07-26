@@ -8,7 +8,8 @@
 
 package dev.sebastian.library_system.service;
 
-import dev.sebastian.library_system.dao.LibraryDAO;
+
+import dev.sebastian.library_system.dao.BookDAO;
 import dev.sebastian.library_system.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,40 +23,40 @@ import java.util.UUID;
 public class BookService
 {
     // Instance variables
-    private final LibraryDAO libraryDAO;
+    private final BookDAO bookDAO;
 
     // ---------------------------------------------------------------------------------
     /** Constructor
      *
-     * @param libraryDAO
+     * @param bookDAO
      */
     @Autowired
-    public BookService(@Qualifier("mysql") LibraryDAO libraryDAO)
+    public BookService(@Qualifier("mysql") BookDAO bookDAO)
     {
-        this.libraryDAO = libraryDAO;
+        this.bookDAO = bookDAO;
 
     }
     // ---------------------------------------------------------------------------------
     public int addBook(Book book)
     {
-        return libraryDAO.insertBook(book);
+        return this.bookDAO.insertBook(book);
     }
     // ---------------------------------------------------------------------------------
     public List<Book> getAllBooks()
     {
-        return libraryDAO.selectAllBooks();
+        return bookDAO.selectAllBooks();
     }
 
     // ---------------------------------------------------------------------------------
     public Optional<Book> getBookByID(UUID bookId)
     {
-        return libraryDAO.selectBookByID(bookId);
+        return bookDAO.selectBookByID(bookId);
     }
 
     // ---------------------------------------------------------------------------------
     public int deleteBook(UUID bookId)
     {
-        return libraryDAO.deleteBookByID(bookId);
+        return bookDAO.deleteBookByID(bookId);
     }
     // ---------------------------------------------------------------------------------
 

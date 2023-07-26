@@ -6,6 +6,13 @@
  *
  */
 
+// --- Remember CRUD operations -> CREATE, READ, UPDATE DELETE.
+//
+//      CREATE --> POST(if we do NOT have id or uuid) / PUT
+//      READ ----> GET
+//      UPDATE ---> PUT (to replace) or PATCH (to modify)
+//      DELETE ---> DELETE
+//
 
 package dev.sebastian.library_system.api;
 
@@ -18,13 +25,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-// --- Remember CRUD operations -> CREATE, READ, UPDATE DELETE.
-//
-//      CREATE --> POST(if we do NOT have id or uuid) / PUT
-//      READ ----> GET
-//      UPDATE ---> PUT (to replace) or PATCH (to modify)
-//      DELETE ---> DELETE
-//
 
 @RestController
 @RequestMapping("api/v1/patrons")       // API endpoint for patrons
