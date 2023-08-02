@@ -9,13 +9,17 @@
 package dev.sebastian.library_system.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 import java.util.UUID;
 
+@Entity
 public class Patron
 {
     // Instance variables
-    private final UUID patronId;
+    @Id
+    private UUID patronId;
     private String name;
     private String address;
     private String street;
@@ -24,7 +28,13 @@ public class Patron
     private String stateCode;
     private int zip;
 
-// ---------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
+
+    public Patron()
+    {
+
+    }
+
     /** Constructor
      *
      *  Creates a record for a person/patron with the given info
@@ -36,8 +46,12 @@ public class Patron
      * @param stateCode the patron's state of residence
      * @param zip       the patron's zip code
      */
-    public Patron(@JsonProperty("patronId") UUID patronId, @JsonProperty("name") String name, @JsonProperty("street") String street,
-                  @JsonProperty("city") String city, @JsonProperty("stateCode") String stateCode, @JsonProperty("zip") int zip)
+    public Patron(@JsonProperty("patronId") UUID patronId,
+                  @JsonProperty("name") String name,
+                  @JsonProperty("street") String street,
+                  @JsonProperty("city") String city,
+                  @JsonProperty("stateCode") String stateCode,
+                  @JsonProperty("zip") int zip)
     {
         this.patronId = patronId;
         this.name = name;
@@ -48,55 +62,91 @@ public class Patron
     }
 
     // ---------------------------------------------------------------------------------
+
+    /**
+     * @return  patron's id
+     */
     public UUID getPatronId()
     {
         return patronId;
     }
-    // ---------------------------------------------------------------------------------
-    /** Retrieves the name of this patron
-     *
+
+
+    /**
      * @return  the name of this patron
      */
     public String getName()
     {
         return name;
     }
-    // ---------------------------------------------------------------------------------
-    /** Returns a description of this patron's address
-     *
-     * @return  this patron's address
+
+
+    /**
+     * @return  string representation of the patron's full address
      */
     public String getAddress()
     {
         return street + ", " + city + ", " + stateCode + ", " + zip;
     }
 
-    // ---------------------------------------------------------------------------------
+
+    /**
+     * @return street the patron lives on
+     */
+    public String getStreet()
+    {
+        return street;
+    }
+
+
+    /**
+     * @return city the patron lives in
+     */
     public String getCity()
     {
         return city;
     }
-    // ---------------------------------------------------------------------------------
+
+
+    /**
+     * @param city  the city to set
+     */
     public void setCity(String city)
     {
         this.city = city;
     }
-    // ---------------------------------------------------------------------------------
+
+
+    /**
+     * @return state the patron lives in
+     */
     public String getStateCode()
     {
         return stateCode;
     }
-    // ---------------------------------------------------------------------------------
+
+
+    /**
+     * @param stateCode state to set
+     */
     public void setStateCode(String stateCode)
     {
         this.stateCode = stateCode;
     }
-    // ---------------------------------------------------------------------------------
+
+
+    /**
+     * @return  patron's zip code
+     */
     public int getZip()
     {
         return zip;
     }
-    // ---------------------------------------------------------------------------------
+
+
+    /**
+     * @param zip   zip code to set
+     */
     public void setZip(int zip)
     {
         this.zip = zip;

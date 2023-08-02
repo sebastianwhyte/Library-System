@@ -23,14 +23,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 
 @RestController
-@RequestMapping("api/v1/patrons")       // API endpoint for patrons
+@RequestMapping("/api/v1/patrons")       // API endpoint for patrons
 public class PatronController
 {
     // Instance variable
+    @Autowired
     private final PatronService patronService;
 
     // ---------------------------------------------------------------------------------
@@ -49,7 +51,7 @@ public class PatronController
      *
      * @param patron
      */
-    @PostMapping
+    @PostMapping(path = "/add")
     public void addPatron(Patron patron)
     {
         patronService.addPatron(patron);
@@ -59,8 +61,8 @@ public class PatronController
      *
      * @return  list of all patrons currently in the database
      */
-    @GetMapping
-    public List<Patron> getAllPatrons()
+    @GetMapping(path = "/all")
+    public Set<Patron> getAllPatrons()
     {
         return patronService.getAllPatrons();
     }
@@ -71,7 +73,7 @@ public class PatronController
      * @param patronId      the patron's id
      * @return
      */
-    @GetMapping(path = "{patronId}")
+    @GetMapping(path = "/{patronId}")
     public Patron getPatronByID(@PathVariable("patronId") UUID patronId)
     {
         return patronService.getPatronByID(patronId)
@@ -82,7 +84,7 @@ public class PatronController
      *
      * @param patronId      the patron's id
      */
-    @DeleteMapping(path = "{patronId}")
+    @DeleteMapping(path = "/delete/{patronId}")
     public void deletePatronID(@PathVariable("patronId") UUID patronId)
     {
         patronService.deletePatron(patronId);

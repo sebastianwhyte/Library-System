@@ -1,13 +1,20 @@
 package dev.sebastian.library_system.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 import java.util.UUID;
 
+@Entity
 public class Book
 {
     // Instance variables
-    private final String title;
-    private final String author;
-    private final UUID bookId;
+    private String title;
+    private String author;
+
+    @Id
+    private UUID bookId;
     private String status = "Active";       // can either be Active or Inactive (Default status is active)
 
     // ---------------------------------------------------------------------------------
@@ -17,11 +24,18 @@ public class Book
      * @param author
      * @param bookId
      */
-    public Book(String title, String author, UUID bookId)
+
+    public Book(@JsonProperty("bookId") UUID bookId, @JsonProperty("title") String title,
+                @JsonProperty("author") String author)
     {
         this.title = title;
         this.author = author;
         this.bookId = bookId;
+    }
+
+    public Book()
+    {
+
     }
 
     // ---------------------------------------------------------------------------------

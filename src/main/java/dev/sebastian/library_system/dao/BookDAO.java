@@ -1,5 +1,6 @@
 package dev.sebastian.library_system.dao;
 
+import dev.sebastian.library_system.exception.BookNotFoundException;
 import dev.sebastian.library_system.model.Book;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface BookDAO
      */
     int insertBook(UUID id, Book book);
 
-    // ---------------------------------------------------------------------------------
+
     /** Randomly generates an id for the specified book that does not have an id
      *
      * @param book    person to generate new id for
@@ -28,28 +29,38 @@ public interface BookDAO
         return insertBook(id, book);
     }
 
-    // ---------------------------------------------------------------------------------
+
+    /**
+     * Retrieves a book by using its id
+     *
+     * @param bookId id of the desired book
+     * @return the book with the given id, if it is in the database.
+     */
+    Optional<Book> selectBookByID(UUID bookId);
+    //ptional<Book> selectBookByID(UUID bookId);
+
+
+    /** Updates the book currently assigned with the given id
+     *
+     * @param id    id of book to update
+     * @param book
+     * @return integer      1 = successful insertion, 0 = insertion failed
+     */
+    int updateBookByID(UUID id, Book newBook);
+
+
+    /** Deletes the book with the given id, if it is in the database
+     *
+     * @param bookId
+     * @return
+     */
+    int deleteBookByID(UUID bookId) throws BookNotFoundException;
+
 
     /** Returns all books in the database
      *
      * @return  list of books currently in the database
      */
     List<Book> selectAllBooks();
-
-    // ---------------------------------------------------------------------------------
-    /** Retrieves a book by using its id
-     *
-     * @param bookId    id of the desired book
-     * @return the book with the given id, if it is in the database.
-     */
-    Optional<Book> selectBookByID(UUID bookId);
-
-    // ---------------------------------------------------------------------------------
-    /** Deletes the book with the given id, if it is in the database
-     *
-     * @param bookId
-     * @return
-     */
-    int deleteBookByID(UUID bookId);
 
 }

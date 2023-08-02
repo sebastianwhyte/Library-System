@@ -3,24 +3,37 @@ package dev.sebastian.library_system.dao;
 import dev.sebastian.library_system.model.Patron;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
-@Repository("mysql")
+@Repository//("mysql")
 public class PatronDataAccessService implements PatronDAO
 {
+    /** Instance variables **/
+
+    // Temp storage for patrons. TODO - Implement CRUD operations to mysql database
+    private static Set<Patron> patronSet = new HashSet<>();
+
+
     /**
      * Inserts a patron into the database
      *
-     * @param patron
+     * @param patron    patron to add
      * @return
      */
     @Override
-    public int addPatron(Patron patron)
+    public String addPatron(Patron patron)
     {
-        return 0;
+        return addNewPatron(patron.getPatronId(), patron.getName(), patron.getStreet(), patron.getCity(),patron.getStateCode(), patron.getZip());
     }
+
+
+    private String addNewPatron(UUID patronId, String name, String street, String city, String stateCode, int zip)
+    {
+        patronSet.add(new Patron(patronId, name, street, city, stateCode, zip));
+
+        return "New Patron: " + name + " with id: " + patronId + " added to database!";
+    }
+
 
     // ---------------------------------------------------------------------------------
     /**
@@ -29,9 +42,9 @@ public class PatronDataAccessService implements PatronDAO
      * @return all patrons currently in the database
      */
     @Override
-    public List<Patron> selectAllPatrons()
+    public Set<Patron> selectAllPatrons()
     {
-        return null;
+        return patronSet;
     }
 
     // ---------------------------------------------------------------------------------
@@ -48,7 +61,8 @@ public class PatronDataAccessService implements PatronDAO
         return Optional.empty();
     }
 
-    // ---------------------------------------------------------------------------------
+
+
     /**
      * Deletes a person by looking up their assigned id
      *
@@ -57,6 +71,20 @@ public class PatronDataAccessService implements PatronDAO
      */
     @Override
     public int deletePatronByID(UUID patronId)
+    {
+        return 0;
+    }
+
+
+    /**
+     * Updates the record of the patron with the given ID
+     *
+     * @param patronID
+     * @param patron
+     * @return
+     */
+    @Override
+    public int updatePatronByID(UUID patronID, Patron patron)
     {
         return 0;
     }

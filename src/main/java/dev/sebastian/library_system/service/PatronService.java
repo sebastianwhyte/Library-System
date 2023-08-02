@@ -8,47 +8,47 @@
 
 package dev.sebastian.library_system.service;
 
-import dev.sebastian.library_system.dao.LibraryDAO;
 import dev.sebastian.library_system.dao.PatronDAO;
+import dev.sebastian.library_system.dao.PatronDataAccessService;
 import dev.sebastian.library_system.model.Patron;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
 public class PatronService
 {
     // Instance variables
-    private final PatronDAO patronDAO;
+    private final PatronDataAccessService patronDataAccessService;
     // ---------------------------------------------------------------------------------
 
     @Autowired
-    public PatronService(@Qualifier("mysql") PatronDAO patronDAO)
+    public PatronService(PatronDataAccessService patronDataAccessService)   //(@Qualifier("mysql") PatronDAO patronDAO)
     {
-        this.patronDAO = patronDAO;
+        this.patronDataAccessService = patronDataAccessService;
     }
     // ---------------------------------------------------------------------------------
-    public int addPatron(Patron patron)
+    public String addPatron(Patron patron)
     {
-        return patronDAO.addPatron(patron);
+        return patronDataAccessService.addPatron(patron);
     }
     // ---------------------------------------------------------------------------------
-    public List<Patron> getAllPatrons()
+    public Set<Patron> getAllPatrons()
     {
-        return patronDAO.selectAllPatrons();
+        return patronDataAccessService.selectAllPatrons();
     }
     // ---------------------------------------------------------------------------------
     public Optional<Patron> getPatronByID(UUID patronId)
     {
-        return patronDAO.selectPatronByID(patronId);
+        return patronDataAccessService.selectPatronByID(patronId);
     }
     // ---------------------------------------------------------------------------------
     public int deletePatron(UUID patronId)
     {
-        return patronDAO.deletePatronByID(patronId);
+        return patronDataAccessService.deletePatronByID(patronId);
     }
 }
