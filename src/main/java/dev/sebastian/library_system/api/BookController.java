@@ -8,7 +8,6 @@
 
 package dev.sebastian.library_system.api;
 
-import dev.sebastian.library_system.exception.BookNotFoundException;
 import dev.sebastian.library_system.model.Book;
 import dev.sebastian.library_system.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +76,7 @@ public class BookController
     }
 
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/{bookId}")
     public void updateBookByID(@PathVariable("bookId") UUID bookId, @RequestBody Book bookToUpdate)
     {
         bookService.updateBookByID(bookId, bookToUpdate);
