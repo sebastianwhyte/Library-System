@@ -21,7 +21,7 @@ public class Patron
     @Id
     private UUID patronId;
     private String name;
-    private String address;
+    //private String address;
     private String street;
     private String aptNum;      // unit number if the patron lives in an apartment
     private String city;

@@ -11,56 +11,39 @@ public class PatronDataAccessService implements PatronDAO
     /** Instance variables **/
 
     // Temp storage for patrons. TODO - Implement CRUD operations to mysql database
-    private static Set<Patron> patronSet = new HashSet<>();
+    private static List<Patron> patronList = new ArrayList<>();
 
 
     /**
      * Inserts a patron into the database
      *
-     * @param patron    patron to add
+     * @param id
+     * @param patron
      * @return
      */
+
     @Override
-    public String addPatron(Patron patron)
+    public int insertPatron(UUID id, Patron patron)
     {
-        return addNewPatron(patron.getPatronId(), patron.getName(), patron.getStreet(), patron.getCity(),patron.getStateCode(), patron.getZip());
+        patronList.add(new Patron(id, patron.getName(), patron.getStreet(), patron.getCity(),patron.getStateCode(), patron.getZip()));
+
+        return 1;
     }
 
-
-    private String addNewPatron(UUID patronId, String name, String street, String city, String stateCode, int zip)
-    {
-        patronSet.add(new Patron(patronId, name, street, city, stateCode, zip));
-
-        return "New Patron: " + name + " with id: " + patronId + " added to database!";
-    }
-
-
-    // ---------------------------------------------------------------------------------
-    /**
-     * Selects and returns all patrons in the database
-     *
-     * @return all patrons currently in the database
-     */
-    @Override
-    public Set<Patron> selectAllPatrons()
-    {
-        return patronSet;
-    }
-
-    // ---------------------------------------------------------------------------------
 
     /**
      * Selects a specific patron by looking up their assigned id
      *
-     * @param patronId
+     * @param patronId      id of the patron
      * @return
      */
     @Override
     public Optional<Patron> selectPatronByID(UUID patronId)
     {
-        return Optional.empty();
+        return patronList.stream()
+                .filter(patron -> patron.getPatronId().equals(patronId))
+                .findFirst();
     }
-
 
 
     /**
@@ -72,20 +55,59 @@ public class PatronDataAccessService implements PatronDAO
     @Override
     public int deletePatronByID(UUID patronId)
     {
-        return 0;
+        Optional<Patron> patron = selectPatronByID(patronId);
+
+        // If optional is empty, then we couldn't find the specified patron in the database.
+        if (patron.isEmpty())
+        {
+            return 0;
+        }
+
+        // Otherwise, get the patron object and remove it
+        patronList.remove(patron.get());
+
+        return 1;
     }
 
 
     /**
      * Updates the record of the patron with the given ID
      *
-     * @param patronID
-     * @param patron
+     * @param patronId      patron record to update
+     * @param newPatron     patron to replace the old patron
      * @return
      */
     @Override
-    public int updatePatronByID(UUID patronID, Patron patron)
+    public int updatePatronByID(UUID patronId, Patron newPatron)
     {
-        return 0;
+        return selectPatronByID(patronId)
+                .map(currentPatron-> {
+                    int indexOfPatronToUpdate = patronList.indexOf(currentPatron);
+
+                    // If the person to delete is in the database, then get the index of the person we want to replace. And return 1 (successful deletion)
+                    if (indexOfPatronToUpdate >= 0)
+                    {
+                        // Create a new person and insert them where the old person was
+                        patronList.set(indexOfPatronToUpdate, new Patron(patronId, newPatron.getName(), newPatron.getStreet(), newPatron.getCity(), newPatron.getStateCode(), newPatron.getZip()));
+
+                        return 1;
+                    }
+
+                    return 0;
+                })
+                .orElse(0);
     }
+
+
+    /**
+     * Selects and returns all patrons in the database
+     *
+     * @return all patrons currently in the database
+     */
+    @Override
+    public List<Patron> selectAllPatrons()
+    {
+        return patronList;
+    }
+
 }

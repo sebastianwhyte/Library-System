@@ -9,16 +9,13 @@
 package dev.sebastian.library_system.service;
 
 
-import dev.sebastian.library_system.dao.BookDAO;
 import dev.sebastian.library_system.dao.BookDataAccessService;
 import dev.sebastian.library_system.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -33,7 +30,7 @@ public class BookService
      * @param bookDataAccessService
      */
     @Autowired
-    public BookService(BookDataAccessService bookDataAccessService)  //(@Qualifier("mysql") BookDAO bookDAO)
+    public BookService(BookDataAccessService bookDataAccessService)  //(@Qualifier("mysql") BookDataAccessService bookDataAccessService)
     {
         this.bookDataAccessService = bookDataAccessService;
 
@@ -42,7 +39,7 @@ public class BookService
 
     public int addBook(Book book)
     {
-        return this.bookDataAccessService.insertBook(book);
+        return bookDataAccessService.insertBook(book);
     }
 
 
@@ -57,12 +54,6 @@ public class BookService
         return bookDataAccessService.selectBookByID(bookId);
     }
 
-    /*
-    public Optional<Book> getBookByID(UUID bookId)
-    {
-        return bookDataAccessService.selectBookByID(bookId);
-    }
-    */
 
     public void updateBookByID(UUID bookId, Book newBook)
     {

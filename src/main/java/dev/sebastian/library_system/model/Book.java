@@ -25,7 +25,8 @@ public class Book
      * @param bookId
      */
 
-    public Book(@JsonProperty("bookId") UUID bookId, @JsonProperty("title") String title,
+    public Book(@JsonProperty("bookId") UUID bookId,
+                @JsonProperty("title") String title,
                 @JsonProperty("author") String author)
     {
         this.title = title;
@@ -38,47 +39,45 @@ public class Book
 
     }
 
-    // ---------------------------------------------------------------------------------
-    /** Retrieves this book's title
-     *
+
+    /**
      * @return  the title of this book
      */
     public String getTitle()
     {
         return title;
     }
-    // ---------------------------------------------------------------------------------
-    /** Retrieves this book's author
-     *
+
+
+    /**
      * @return  the author of this book
      */
     public String getAuthor()
     {
         return author;
     }
-    // ---------------------------------------------------------------------------------
 
-    /** Retrieves this book's id
-     *
+
+    /**
      * @return  the id belonging to this book
      */
     public UUID getBookId()
     {
         return bookId;
     }
-    // ---------------------------------------------------------------------------------
-    /** Retrieves the current status of this book
-     *
+
+
+    /**
      * @return
      */
     public String getStatus()
     {
         return status;
     }
-    // ---------------------------------------------------------------------------------
-    /** Sets the status of this book
-     *
-     * @param status
+
+
+    /**
+     * @param status status to set (if book is active or inactive)
      */
     public void setStatus(String status)
     {

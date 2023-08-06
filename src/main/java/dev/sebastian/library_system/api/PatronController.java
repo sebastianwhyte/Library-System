@@ -46,32 +46,33 @@ public class PatronController
         this.patronService = patronService;
     }
 
-    // ---------------------------------------------------------------------------------
+
     /** Inserts the patron into the database.
      *
      * @param patron
      */
     @PostMapping(path = "/add")
-    public void addPatron(Patron patron)
+    public void addPatron(@RequestBody Patron patron)
     {
         patronService.addPatron(patron);
     }
-    // ---------------------------------------------------------------------------------
+
+
     /** Retrieves all patrons in the database
      *
      * @return  list of all patrons currently in the database
      */
     @GetMapping(path = "/all")
-    public Set<Patron> getAllPatrons()
+    public List<Patron> getAllPatrons()
     {
         return patronService.getAllPatrons();
     }
 
-    // ---------------------------------------------------------------------------------
-    /** Retrieves the patron with the given id -- TODO: LOOK UP REPLACING NULL WITH AN EXCEPTION
+
+    /** Retrieves the patron with the given id
      *
      * @param patronId      the patron's id
-     * @return
+     * @return              patron with the specified id, else null
      */
     @GetMapping(path = "/{patronId}")
     public Patron getPatronByID(@PathVariable("patronId") UUID patronId)
@@ -79,7 +80,16 @@ public class PatronController
         return patronService.getPatronByID(patronId)
                 .orElse(null);
     }
-    // ---------------------------------------------------------------------------------
+
+
+    @PutMapping(path = "/{patronId}")
+    public void updatePatronByID(@PathVariable("patronId") UUID patronId,
+                                 @RequestBody Patron patronToUpdate)
+    {
+        patronService.updatePatronByID(patronId, patronToUpdate);
+    }
+
+
     /** Deletes the patron with the given id
      *
      * @param patronId      the patron's id

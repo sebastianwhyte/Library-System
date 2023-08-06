@@ -6,17 +6,16 @@
 
 package dev.sebastian.library_system.dao;
 
-import dev.sebastian.library_system.exception.BookNotFoundException;
 import dev.sebastian.library_system.model.Book;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+
 @Repository//("mysql")
 public class BookDataAccessService implements BookDAO
 {
     // Instance variables
-    //private static List<Book> bookList = new ArrayList<>();
     private static List<Book> bookList = new ArrayList<>();     // Using a set so there are no dupliate books
 
     // ---------------------------------------------------------------------------------
@@ -30,13 +29,10 @@ public class BookDataAccessService implements BookDAO
     @Override
     public int insertBook(UUID id, Book book)
     {
-        //bookList.add(new Book(id, book.getTitle(), book.getAuthor()));
-
         bookList.add(new Book(id, book.getTitle(), book.getAuthor()));
 
         return 1;
     }
-
 
 
     /**
@@ -46,12 +42,14 @@ public class BookDataAccessService implements BookDAO
      * @return the book with the given id, if it is in the database.
      */
     @Override
-    public Optional<Book> selectBookByID(UUID bookId)  // Optional<Book> selectBookByID(UUID bookId)
+    public Optional<Book> selectBookByID(UUID bookId)
     {
         return bookList.stream()
             .filter(book -> book.getBookId().equals(bookId))
             .findFirst();
     }
+
+
 
     /**
      * Updates the book currently assigned with the given id
@@ -64,8 +62,9 @@ public class BookDataAccessService implements BookDAO
     public int updateBookByID(UUID bookId, Book newBook)
     {
         return selectBookByID(bookId)
-                .map(book -> {
-                    int indexOfBookToUpdate = bookList.indexOf(book);
+                .map(currentBook -> {
+                    int indexOfBookToUpdate = bookList.indexOf(currentBook);
+
                     // If the person to delete is in the database, then get the index of the person we want to replace. And return 1 (successful deletion)
                     if (indexOfBookToUpdate >= 0)
                     {
@@ -78,7 +77,6 @@ public class BookDataAccessService implements BookDAO
                     return 0;
                 })
                 .orElse(0);
-
     }
 
 
@@ -86,7 +84,7 @@ public class BookDataAccessService implements BookDAO
      * Deletes the book with the given id, if it is in the database
      *
      * @param bookId
-     * @return
+     * @return  1 = successful deletion, 0 = failed deletion
      */
     @Override
     public int deleteBookByID(UUID bookId)
@@ -99,10 +97,12 @@ public class BookDataAccessService implements BookDAO
             return 0;
         }
 
+        // Otherwise, get the book object and remove it
+        bookList.remove(book.get());
 
-        bookList.remove(book);
 
         return 1;
+
     }
 
 
@@ -111,11 +111,12 @@ public class BookDataAccessService implements BookDAO
         return null;
     }
 
-/**
- * Returns all books in the database
- *
- * @return list of books currently in the database
- */
+
+    /**
+     * Returns all books in the database
+     *
+     * @return list of books currently in the database
+     */
     @Override
     public List<Book> selectAllBooks()
     {

@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 
@@ -77,7 +76,8 @@ public class BookController
 
 
     @PutMapping(path = "/{bookId}")
-    public void updateBookByID(@PathVariable("bookId") UUID bookId, @RequestBody Book bookToUpdate)
+    public void updateBookByID(@PathVariable("bookId") UUID bookId,
+                               @RequestBody Book bookToUpdate)
     {
         bookService.updateBookByID(bookId, bookToUpdate);
     }
