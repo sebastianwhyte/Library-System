@@ -17,7 +17,7 @@ import java.util.UUID;
 @Entity
 public class Patron
 {
-    // Instance variables
+    /** Instance variables **/
     @Id
     private UUID patronId;
     private String name;

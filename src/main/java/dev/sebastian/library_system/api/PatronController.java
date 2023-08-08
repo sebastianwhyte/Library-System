@@ -28,7 +28,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/api/v1/patrons")       // API endpoint for patrons
+@RequestMapping("/library_db/v1/patrons")       // API endpoint for patrons
 public class PatronController
 {
     // Instance variable
