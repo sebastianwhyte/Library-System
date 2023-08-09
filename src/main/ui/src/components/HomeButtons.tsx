@@ -1,10 +1,9 @@
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
 // Have this class call super to its props to insert the button text dynamically -- the text
 // will change depending on which view we are currently in
 
-function HomeButton({value, onButtonClick})
+function HomeButton({value, onButtonClick}
 {
     return (
         <button className="home-button" onClick={onButtonClick}>{ value }</button>
