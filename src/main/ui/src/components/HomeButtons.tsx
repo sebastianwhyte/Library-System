@@ -1,19 +1,22 @@
 import Box from '@mui/material/Box';
+import Stack from "@mui/material/Stack";
 
 // Have this class call super to its props to insert the button text dynamically -- the text
 // will change depending on which view we are currently in
 
-function HomeButton({value, onButtonClick}
+function HomeButton({value, onButtonClick})
 {
     return (
         <button className="home-button" onClick={onButtonClick}>{ value }</button>
     );
 }
 
+
 function handleClick(value: string)
 {
     alert("You clicked on the " +  value + " button!");
 }
+
 
 const buttons =
     (
@@ -34,12 +37,14 @@ function HomeButtons()
     return (
         <Box justifyContent="center"
               alignItems="center"
-              minHeight="100vh"
+              maxHeight="75vh"
              >
-            <br/>
-            {buttons}
+            <Stack spacing={2}>
+                {buttons}
+            </Stack>
         </Box>
     );
 }
+
 
 export default HomeButtons;
