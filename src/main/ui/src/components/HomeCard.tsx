@@ -6,7 +6,6 @@ import HomeScreenTitleText from "./HomeScreenTitleText.tsx";
 import HomeButtons from "./HomeButtons.tsx";
 
 
-
 const card =  (
     <>
         <CardContent>
@@ -19,7 +18,11 @@ const card =  (
 function HomeCard()
 {
     return (
-        <Box sx={{ maxWidth: 1/2 }}>
+        <Box sx={{ maxWidth: 1/3,
+                direction: "column",
+                justify: "center",
+                alignItems:"Center"}}
+                >
             <Card variant="outlined">
                 {card}
             </Card>
