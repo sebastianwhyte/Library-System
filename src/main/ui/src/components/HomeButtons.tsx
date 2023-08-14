@@ -26,10 +26,10 @@ const buttons =
     (
         <>
             <a href="/add-new-book"><button>Add New Book</button></a>
-            <a href="/delete"><button>Delete Book</button></a>
-            <button>Add New Patron</button>
-            <button>Update Patron Record</button>
-            <button>Delete Patron</button>
+            <a href="/delete-book"><button>Delete Book</button></a>
+            <a href='/add-new-patron'><button>Add New Patron</button></a>
+            <a href='/update-patron'><button>Update Patron Record</button></a>
+            <a href='/delete-patron'><button>Delete Patron</button></a>
         </>
 
         /*
