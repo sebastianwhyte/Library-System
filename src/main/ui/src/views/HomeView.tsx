@@ -1,3 +1,4 @@
+// @ts-ignore
 import HomeCard from "../components/HomeCard.tsx";
 
 function HomeView()

@@ -18,7 +18,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/library_db/v1/books")         // API endpoint for books
+@RequestMapping("/library/v1/books")         // API endpoint for books
 public class BookController
 {
     // Instance variables
