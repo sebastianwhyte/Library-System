@@ -16,14 +16,12 @@
 
 package dev.sebastian.library_system.api;
 
-import dev.sebastian.library_system.model.Book;
 import dev.sebastian.library_system.model.Patron;
 import dev.sebastian.library_system.service.PatronService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 
@@ -31,7 +29,7 @@ import java.util.UUID;
 @RequestMapping("/library/v1/patrons")       // API endpoint for patrons
 public class PatronController
 {
-    // Instance variable
+    /** Instance variables **/
     @Autowired
     private final PatronService patronService;
 
@@ -58,8 +56,7 @@ public class PatronController
     }
 
 
-    /** Retrieves all patrons in the database
-     *
+    /**
      * @return  list of all patrons currently in the database
      */
     @GetMapping(path = "/all")
@@ -69,10 +66,9 @@ public class PatronController
     }
 
 
-    /** Retrieves the patron with the given id
-     *
+    /**
      * @param patronId      the patron's id
-     * @return              patron with the specified id, else null
+     * @return              patron with the specified id, if they are currently in database
      */
     @GetMapping(path = "/{patronId}")
     public Patron getPatronByID(@PathVariable("patronId") UUID patronId)
@@ -90,8 +86,7 @@ public class PatronController
     }
 
 
-    /** Deletes the patron with the given id
-     *
+    /**
      * @param patronId      the patron's id
      */
     @DeleteMapping(path = "/delete/{patronId}")

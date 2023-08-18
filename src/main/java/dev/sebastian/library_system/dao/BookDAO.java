@@ -9,8 +9,7 @@ import java.util.UUID;
 
 public interface BookDAO
 {
-    /** Inserts the given book into the database
-     *
+    /**
      * @param book      book to add to database
      * @return integer  1 = successful insertion, 0 = insertion failed
      */
@@ -31,8 +30,6 @@ public interface BookDAO
 
 
     /**
-     * Retrieves a book by using its id
-     *
      * @param bookId id of the desired book
      * @return the book with the given id, if it is in the database.
      */
@@ -48,16 +45,14 @@ public interface BookDAO
     int updateBookByID(UUID id, Book newBook);
 
 
-    /** Deletes the book with the given id, if it is in the database
-     *
-     * @param bookId
-     * @return
+    /**
+     * @param bookId    id of book to delete
+     * @return          1 = successful deletion, 0 = failed to delete
      */
     int deleteBookByID(UUID bookId);
 
 
-    /** Returns all books in the database
-     *
+    /**
      * @return  list of books currently in the database
      */
     List<Book> selectAllBooks();
