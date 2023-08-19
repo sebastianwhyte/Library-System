@@ -21,4 +21,3 @@ CREATE TABLE Patron
     stateCode CHAR(2) NOT NULL,
     zip INT NOT NULL
 );
-
