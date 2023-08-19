@@ -227,6 +227,6 @@ Temporary Items
 
 
 # Spring boot config
-src/application.properties
+src/main/resources/application.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,macos
