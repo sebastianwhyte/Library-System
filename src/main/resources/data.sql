@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS Patron;
 
 CREATE TABLE Book
 (
-    bookId BINARY(16) PRIMARY KEY,
+    book_id BINARY(16) PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL,
     status CHAR(8) NOT NULL

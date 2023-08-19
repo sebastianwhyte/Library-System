@@ -6,9 +6,11 @@
 
 package dev.sebastian.library_system.dao;
 
+import dev.sebastian.library_system.mapper.BookMapper;
 import dev.sebastian.library_system.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -21,6 +23,8 @@ public class BookDataAccessService implements BookDAO
     // Instance variables
     private static List<Book> bookList = new ArrayList<>();     // Using a set so there are no dupliate books
     private final JdbcTemplate jdbcTemplate;
+
+        private final String SQL_INSERT_PERSON = "INSERT INTO Book(book_id, title, author, status) VALUES (?,?,?,?)";
 
     // ---------------------------------------------------------------------------------
     /** Constructor **/
@@ -51,7 +55,8 @@ public class BookDataAccessService implements BookDAO
     @Override
     public int insertBook(UUID id, Book book)
     {
-        bookList.add(new Book(id, book.getTitle(), book.getAuthor()));
+        jdbcTemplate.update(SQL_INSERT_PERSON, book.getBookId(), book.getAuthor(), book.getStatus());
+        //bookList.add(new Book(id, book.getTitle(), book.getAuthor()));
 
         return 1;
     }
@@ -144,7 +149,9 @@ public class BookDataAccessService implements BookDAO
     {
         String query = "SELECT book_id, title, author FROM Book";
 
-        // TODO - Hibernate is creating columns automatically (ex: book_id), which is causing a 500 error response. Fix thos
+        return jdbcTemplate.query(query, new BookMapper());
+
+        /*
 
         // Execute query and return the results
         // List<Book> books = jdbcTemplate.query(...)
@@ -159,5 +166,7 @@ public class BookDataAccessService implements BookDAO
         });
 
         //return books;
+
+         */
     }
 }

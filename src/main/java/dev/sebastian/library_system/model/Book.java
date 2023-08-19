@@ -49,6 +49,23 @@ public class Book
 
     }
 
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+
+    public void setAuthor(String author)
+    {
+        this.author = author;
+    }
+
+
+    public void setBookId(UUID bookId)
+    {
+        this.bookId = bookId;
+    }
+
 
     /**
      * @return  the title of this book
