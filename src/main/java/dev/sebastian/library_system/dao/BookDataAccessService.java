@@ -22,9 +22,14 @@ public class BookDataAccessService implements BookDAO
 {
     // Instance variables
     private static List<Book> bookList = new ArrayList<>();     // Using a set so there are no dupliate books
+
+    @Autowired
     private final JdbcTemplate jdbcTemplate;
 
-        private final String SQL_INSERT_PERSON = "INSERT INTO Book(book_id, title, author, status) VALUES (?,?,?,?)";
+    @Autowired
+    private DataSource dataSource;
+
+    private final String SQL_INSERT_BOOK = "INSERT INTO Book(book_id, title, author, status) VALUES (UUID_TO_BIN(UUID()),?,?,?)";
 
     // ---------------------------------------------------------------------------------
     /** Constructor **/
@@ -32,6 +37,7 @@ public class BookDataAccessService implements BookDAO
     public BookDataAccessService(JdbcTemplate jdbcTemplate)
     {
         this.jdbcTemplate = jdbcTemplate;
+        //jdbcTemplate.setDataSource(dataSource);
     }
 
 
@@ -55,7 +61,10 @@ public class BookDataAccessService implements BookDAO
     @Override
     public int insertBook(UUID id, Book book)
     {
-        jdbcTemplate.update(SQL_INSERT_PERSON, book.getBookId(), book.getAuthor(), book.getStatus());
+        book.setBookId(id);
+
+        jdbcTemplate.update(SQL_INSERT_BOOK, book.getTitle(), book.getAuthor(), book.getStatus());
+
         //bookList.add(new Book(id, book.getTitle(), book.getAuthor()));
 
         return 1;
@@ -75,7 +84,6 @@ public class BookDataAccessService implements BookDAO
             .filter(book -> book.getBookId().equals(bookId))
             .findFirst();
     }
-
 
 
     /**

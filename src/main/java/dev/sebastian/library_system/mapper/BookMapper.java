@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public class BookMapper implements RowMapper<Book>
 {
+    // TODO - Receiving error " java.lang.IllegalArgumentException: Invalid UUID string: ���?��ϸ+�� " -- need to
+    //  format the UUID correctly - 08/20/2023
     public Book mapRow(ResultSet resultSet, int rowNum) throws SQLException
     {
         Book book = new Book();

@@ -25,6 +25,9 @@ public interface BookDAO
     {
         UUID id = UUID.randomUUID();
 
+        // DEBUG
+        System.out.println(id);
+
         return insertBook(id, book);
     }
 

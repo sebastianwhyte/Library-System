@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.springframework.lang.NonNull;
 
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ public class Book
     private String author;
 
     @Id
+    @NonNull
     @Column(name = "book_id")
     private UUID bookId;
 
@@ -36,6 +38,7 @@ public class Book
      */
 
     public Book(@JsonProperty("bookId") UUID bookId,
+                //UUID bookId,
                 @JsonProperty("title") String title,
                 @JsonProperty("author") String author)
     {
