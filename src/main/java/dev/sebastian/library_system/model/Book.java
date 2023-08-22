@@ -23,7 +23,8 @@ public class Book
     @Id
     @NonNull
     @Column(name = "book_id")
-    private UUID bookId;
+    //private UUID bookId;
+    private String bookId;
 
 
     @Column(name = "status")
@@ -37,8 +38,8 @@ public class Book
      * @param bookId
      */
 
-    public Book(@JsonProperty("bookId") UUID bookId,
-                //UUID bookId,
+    public Book(@JsonProperty("bookId") String bookId,
+                //@JsonProperty("bookId") UUID bookId
                 @JsonProperty("title") String title,
                 @JsonProperty("author") String author)
     {
@@ -63,12 +64,17 @@ public class Book
         this.author = author;
     }
 
-
+    /*
     public void setBookId(UUID bookId)
     {
         this.bookId = bookId;
     }
+    */
 
+    public void setBookId(String bookId)
+    {
+        this.bookId = bookId;
+    }
 
     /**
      * @return  the title of this book
@@ -91,11 +97,17 @@ public class Book
     /**
      * @return  the id belonging to this book
      */
+    /*
     public UUID getBookId()
     {
         return bookId;
     }
+    */
 
+    public String getBookId()
+    {
+        return bookId;
+    }
 
     /**
      * @return

@@ -68,13 +68,31 @@ public class BookController
      *                  database. If not, then null
      */
     @GetMapping(path = "/{bookId}")
+    public Book getBookByID(@PathVariable("bookId") String bookId)
+    {
+        return bookService.getBookByID(bookId)
+                .orElse(null);
+    }
+
+    /*
+    @GetMapping(path = "/{bookId}")
     public Book getBookByID(@PathVariable("bookId") UUID bookId)
     {
         return bookService.getBookByID(bookId)
                 .orElse(null);
     }
 
+     */
 
+
+    @PutMapping(path = "/{bookId}")
+    public void updateBookByID(@PathVariable("bookId") String bookId,
+                               @RequestBody Book bookToUpdate)
+    {
+        bookService.updateBookByID(bookId, bookToUpdate);
+    }
+
+    /*
     @PutMapping(path = "/{bookId}")
     public void updateBookByID(@PathVariable("bookId") UUID bookId,
                                @RequestBody Book bookToUpdate)
@@ -88,9 +106,16 @@ public class BookController
      * @param bookId    id of the book to delete
      */
     @DeleteMapping(path = "/delete/{bookId}")
-    public void deleteBookByID(@PathVariable("bookId") UUID bookId)
+    public void deleteBookByID(@PathVariable("bookId") String bookId)
     {
         bookService.deleteBook(bookId);
     }
 
+    /*
+    @DeleteMapping(path = "/delete/{bookId}")
+    public void deleteBookByID(@PathVariable("bookId") UUID bookId)
+    {
+        bookService.deleteBook(bookId);
+    }
+    */
 }

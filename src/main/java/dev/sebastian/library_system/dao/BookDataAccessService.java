@@ -29,7 +29,8 @@ public class BookDataAccessService implements BookDAO
     @Autowired
     private DataSource dataSource;
 
-    private final String SQL_INSERT_BOOK = "INSERT INTO Book(book_id, title, author, status) VALUES (UUID_TO_BIN(UUID()),?,?,?)";
+    private final String SQL_INSERT_BOOK = "INSERT INTO Book(book_id, title, author, status) VALUES (?,?,?,?)";
+    //private final String SQL_INSERT_BOOK = "INSERT INTO Book(book_id, title, author, status) VALUES (UNHEX(REPLACE(?, \"-\",\"\")),?,?,?)";
 
     // ---------------------------------------------------------------------------------
     /** Constructor **/
@@ -59,17 +60,28 @@ public class BookDataAccessService implements BookDAO
      * @return integer  1 = successful insertion, 0 = insertion failed
      */
     @Override
+    public int insertBook(String id, Book book)
+    {
+        book.setBookId(id);
+
+        jdbcTemplate.update(SQL_INSERT_BOOK, book.getBookId(), book.getTitle(), book.getAuthor(), book.getStatus());
+
+        return 1;
+    }
+
+    /*
+    @Override
     public int insertBook(UUID id, Book book)
     {
         book.setBookId(id);
 
-        jdbcTemplate.update(SQL_INSERT_BOOK, book.getTitle(), book.getAuthor(), book.getStatus());
+        jdbcTemplate.update(SQL_INSERT_BOOK, book.getBookId(), book.getTitle(), book.getAuthor(), book.getStatus());
 
         //bookList.add(new Book(id, book.getTitle(), book.getAuthor()));
 
         return 1;
     }
-
+    */
 
     /**
      * Retrieves a book by using its id
@@ -78,13 +90,22 @@ public class BookDataAccessService implements BookDAO
      * @return the book with the given id, if it is in the database.
      */
     @Override
+    public Optional<Book> selectBookByID(String bookId)
+    {
+        return bookList.stream()
+                .filter(book -> book.getBookId().equals(bookId))
+                .findFirst();
+    }
+
+    /*
+    @Override
     public Optional<Book> selectBookByID(UUID bookId)
     {
         return bookList.stream()
             .filter(book -> book.getBookId().equals(bookId))
             .findFirst();
     }
-
+    */
 
     /**
      * Updates the book currently assigned with the given id
@@ -93,6 +114,13 @@ public class BookDataAccessService implements BookDAO
      * @param newBook
      * @return integer      1 = successful insertion, 0 = insertion failed
      */
+    public int updateBookByID(String bookId, Book newBook)
+    {
+        // Will implement...
+        return 1;
+    }
+
+    /*
     @Override
     public int updateBookByID(UUID bookId, Book newBook)
     {
@@ -104,7 +132,7 @@ public class BookDataAccessService implements BookDAO
                     if (indexOfBookToUpdate >= 0)
                     {
                         // Create a new person and insert them where the old person was
-                        bookList.set(indexOfBookToUpdate, new Book(bookId, newBook.getTitle(), newBook.getAuthor()));
+                        //bookList.set(indexOfBookToUpdate, new Book(bookId, newBook.getTitle(), newBook.getAuthor()));
 
                         return 1;
                     }
@@ -113,7 +141,7 @@ public class BookDataAccessService implements BookDAO
                 })
                 .orElse(0);
     }
-
+    */
 
     /**
      * Deletes the book with the given id, if it is in the database
@@ -121,6 +149,26 @@ public class BookDataAccessService implements BookDAO
      * @param bookId
      * @return  1 = successful deletion, 0 = failed deletion
      */
+    @Override
+    public int deleteBookByID(String bookId)
+    {
+        Optional<Book> book = selectBookByID(bookId);
+
+        // If optional is empty, then we couldn't find the specified book in the database.
+        if (book.isEmpty())
+        {
+            return 0;
+        }
+
+        // Otherwise, get the book object and remove it
+        bookList.remove(book.get());
+
+
+        return 1;
+
+    }
+
+    /*
     @Override
     public int deleteBookByID(UUID bookId)
     {
@@ -140,8 +188,16 @@ public class BookDataAccessService implements BookDAO
 
     }
 
+     */
 
-    private Optional<Book> findBookById(UUID bookId)
+
+
+    /** Finds book that is assigned the given id
+     *
+     * @param bookId
+     * @return  book with the specified id
+     */
+    private Optional<Book> findBookById(String bookId)
     {
         return null;
     }
@@ -159,22 +215,5 @@ public class BookDataAccessService implements BookDAO
 
         return jdbcTemplate.query(query, new BookMapper());
 
-        /*
-
-        // Execute query and return the results
-        // List<Book> books = jdbcTemplate.query(...)
-        return jdbcTemplate.query(query, (resultSet, i) -> {
-            UUID id = UUID.fromString(resultSet.getString("book_id"));
-
-            String title = resultSet.getString("title");
-
-            String author = resultSet.getString("author");
-
-            return new Book(id, title, author);
-        });
-
-        //return books;
-
-         */
     }
 }

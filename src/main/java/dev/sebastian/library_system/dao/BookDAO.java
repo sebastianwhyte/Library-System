@@ -13,7 +13,8 @@ public interface BookDAO
      * @param book      book to add to database
      * @return integer  1 = successful insertion, 0 = insertion failed
      */
-    int insertBook(UUID id, Book book);
+    //int insertBook(UUID id, Book book);
+    int insertBook(String id, Book book);
 
 
     /** Randomly generates an id for the specified book that does not have an id
@@ -23,10 +24,13 @@ public interface BookDAO
      */
     default int insertBook(Book book)
     {
-        UUID id = UUID.randomUUID();
+        UUID uuid = UUID.randomUUID();
+
+        String id = uuid.toString();
 
         // DEBUG
-        System.out.println(id);
+        System.out.println("UUID ->" + uuid);
+        System.out.println("String UUID ->" + id);
 
         return insertBook(id, book);
     }
@@ -36,7 +40,8 @@ public interface BookDAO
      * @param bookId id of the desired book
      * @return the book with the given id, if it is in the database.
      */
-    Optional<Book> selectBookByID(UUID bookId);
+    Optional<Book> selectBookByID(String bookId);
+    //Optional<Book> selectBookByID(UUID bookId);
 
 
     /** Updates the book currently assigned with the given id
@@ -45,14 +50,16 @@ public interface BookDAO
      * @param newBook
      * @return integer      1 = successful insertion, 0 = insertion failed
      */
-    int updateBookByID(UUID id, Book newBook);
+    int updateBookByID(String id, Book newBook);
+    //int updateBookByID(UUID id, Book newBook);
 
 
     /**
      * @param bookId    id of book to delete
      * @return          1 = successful deletion, 0 = failed to delete
      */
-    int deleteBookByID(UUID bookId);
+    int deleteBookByID(String bookId);
+    //int deleteBookByID(UUID bookId);
 
 
     /**

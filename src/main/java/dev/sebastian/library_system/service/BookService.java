@@ -48,21 +48,37 @@ public class BookService
     }
 
 
-    public Optional<Book> getBookByID(UUID bookId)
+    public Optional<Book> getBookByID(String bookId)
     {
         return bookDataAccessService.selectBookByID(bookId);
     }
 
+    public void updateBookByID(String bookId, Book newBook)
+    {
+        bookDataAccessService.updateBookByID(bookId, newBook);
+    }
+
+    public int deleteBook(String bookId)
+    {
+        return bookDataAccessService.deleteBookByID(bookId);
+    }
+
+    /*
+    public Optional<Book> getBookByID(UUID bookId)
+    {
+        return bookDataAccessService.selectBookByID(bookId);
+    }
 
     public void updateBookByID(UUID bookId, Book newBook)
     {
         bookDataAccessService.updateBookByID(bookId, newBook);
     }
 
-
     public int deleteBook(UUID bookId)
     {
         return bookDataAccessService.deleteBookByID(bookId);
     }
 
+
+     */
 }
