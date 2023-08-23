@@ -6,11 +6,11 @@
 
 package dev.sebastian.library_system.dao;
 
+import dev.sebastian.library_system.exception.BookNotFoundException;
 import dev.sebastian.library_system.mapper.BookMapper;
 import dev.sebastian.library_system.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -30,8 +30,6 @@ public class BookDataAccessService implements BookDAO
     private DataSource dataSource;
 
     private final String SQL_INSERT_BOOK = "INSERT INTO Book(book_id, title, author, status) VALUES (?,?,?,?)";
-    //private final String SQL_INSERT_BOOK = "INSERT INTO Book(book_id, title, author, status) VALUES (UNHEX(REPLACE(?, \"-\",\"\")),?,?,?)";
-
     // ---------------------------------------------------------------------------------
     /** Constructor **/
     @Autowired
@@ -69,19 +67,6 @@ public class BookDataAccessService implements BookDAO
         return 1;
     }
 
-    /*
-    @Override
-    public int insertBook(UUID id, Book book)
-    {
-        book.setBookId(id);
-
-        jdbcTemplate.update(SQL_INSERT_BOOK, book.getBookId(), book.getTitle(), book.getAuthor(), book.getStatus());
-
-        //bookList.add(new Book(id, book.getTitle(), book.getAuthor()));
-
-        return 1;
-    }
-    */
 
     /**
      * Retrieves a book by using its id
@@ -93,19 +78,10 @@ public class BookDataAccessService implements BookDAO
     public Optional<Book> selectBookByID(String bookId)
     {
         return bookList.stream()
-                .filter(book -> book.getBookId().equals(bookId))
-                .findFirst();
-    }
-
-    /*
-    @Override
-    public Optional<Book> selectBookByID(UUID bookId)
-    {
-        return bookList.stream()
             .filter(book -> book.getBookId().equals(bookId))
             .findFirst();
     }
-    */
+
 
     /**
      * Updates the book currently assigned with the given id
@@ -189,7 +165,6 @@ public class BookDataAccessService implements BookDAO
     }
 
      */
-
 
 
     /** Finds book that is assigned the given id

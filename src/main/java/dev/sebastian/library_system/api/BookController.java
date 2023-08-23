@@ -8,6 +8,7 @@
 
 package dev.sebastian.library_system.api;
 
+import dev.sebastian.library_system.exception.BookNotFoundException;
 import dev.sebastian.library_system.model.Book;
 import dev.sebastian.library_system.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,6 @@ public class BookController
     {
         this.bookService = bookService;
     }
-
 
 
     /** Adds a book to the database. @RequestBody reads the JSON response body.
@@ -74,27 +74,9 @@ public class BookController
                 .orElse(null);
     }
 
-    /*
-    @GetMapping(path = "/{bookId}")
-    public Book getBookByID(@PathVariable("bookId") UUID bookId)
-    {
-        return bookService.getBookByID(bookId)
-                .orElse(null);
-    }
-
-     */
-
 
     @PutMapping(path = "/{bookId}")
     public void updateBookByID(@PathVariable("bookId") String bookId,
-                               @RequestBody Book bookToUpdate)
-    {
-        bookService.updateBookByID(bookId, bookToUpdate);
-    }
-
-    /*
-    @PutMapping(path = "/{bookId}")
-    public void updateBookByID(@PathVariable("bookId") UUID bookId,
                                @RequestBody Book bookToUpdate)
     {
         bookService.updateBookByID(bookId, bookToUpdate);
@@ -105,17 +87,14 @@ public class BookController
      *
      * @param bookId    id of the book to delete
      */
+
+    /*
     @DeleteMapping(path = "/delete/{bookId}")
     public void deleteBookByID(@PathVariable("bookId") String bookId)
     {
         bookService.deleteBook(bookId);
     }
 
-    /*
-    @DeleteMapping(path = "/delete/{bookId}")
-    public void deleteBookByID(@PathVariable("bookId") UUID bookId)
-    {
-        bookService.deleteBook(bookId);
-    }
-    */
+
+     */
 }

@@ -1,5 +1,6 @@
 package dev.sebastian.library_system.dao;
 
+import dev.sebastian.library_system.exception.BookNotFoundException;
 import dev.sebastian.library_system.model.Book;
 
 import java.util.List;
@@ -13,7 +14,6 @@ public interface BookDAO
      * @param book      book to add to database
      * @return integer  1 = successful insertion, 0 = insertion failed
      */
-    //int insertBook(UUID id, Book book);
     int insertBook(String id, Book book);
 
 
@@ -41,7 +41,6 @@ public interface BookDAO
      * @return the book with the given id, if it is in the database.
      */
     Optional<Book> selectBookByID(String bookId);
-    //Optional<Book> selectBookByID(UUID bookId);
 
 
     /** Updates the book currently assigned with the given id
@@ -51,7 +50,6 @@ public interface BookDAO
      * @return integer      1 = successful insertion, 0 = insertion failed
      */
     int updateBookByID(String id, Book newBook);
-    //int updateBookByID(UUID id, Book newBook);
 
 
     /**
@@ -59,7 +57,6 @@ public interface BookDAO
      * @return          1 = successful deletion, 0 = failed to delete
      */
     int deleteBookByID(String bookId);
-    //int deleteBookByID(UUID bookId);
 
 
     /**
