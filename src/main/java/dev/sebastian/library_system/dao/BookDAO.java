@@ -4,7 +4,6 @@ import dev.sebastian.library_system.exception.BookNotFoundException;
 import dev.sebastian.library_system.model.Book;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -29,8 +28,8 @@ public interface BookDAO
         String id = uuid.toString();
 
         // DEBUG
-        System.out.println("UUID ->" + uuid);
-        System.out.println("String UUID ->" + id);
+        //System.out.println("UUID ->" + uuid);
+        //System.out.println("String UUID ->" + id);
 
         return insertBook(id, book);
     }
@@ -40,7 +39,7 @@ public interface BookDAO
      * @param bookId id of the desired book
      * @return the book with the given id, if it is in the database.
      */
-    Optional<Book> selectBookByID(String bookId);
+    Book selectBookByID(String bookId) throws BookNotFoundException;
 
 
     /** Updates the book currently assigned with the given id
@@ -56,7 +55,7 @@ public interface BookDAO
      * @param bookId    id of book to delete
      * @return          1 = successful deletion, 0 = failed to delete
      */
-    int deleteBookByID(String bookId);
+    int deleteBookByID(String bookId) throws BookNotFoundException;
 
 
     /**

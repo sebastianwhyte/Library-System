@@ -10,13 +10,13 @@ package dev.sebastian.library_system.service;
 
 
 import dev.sebastian.library_system.dao.BookDataAccessService;
+import dev.sebastian.library_system.exception.BookNotFoundException;
 import dev.sebastian.library_system.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+
 
 @Service
 public class BookService
@@ -30,7 +30,7 @@ public class BookService
      * @param bookDataAccessService
      */
     @Autowired
-    public BookService(BookDataAccessService bookDataAccessService)  //(@Qualifier("mysql") BookDataAccessService bookDataAccessService)
+    public BookService(BookDataAccessService bookDataAccessService)
     {
         this.bookDataAccessService = bookDataAccessService;
 
@@ -48,37 +48,21 @@ public class BookService
     }
 
 
-    public Optional<Book> getBookByID(String bookId)
+    public Book getBookByID(String bookId) throws BookNotFoundException
     {
         return bookDataAccessService.selectBookByID(bookId);
     }
+
 
     public void updateBookByID(String bookId, Book newBook)
     {
         bookDataAccessService.updateBookByID(bookId, newBook);
     }
 
-    public int deleteBook(String bookId)
+
+    public int deleteBook(String bookId) throws BookNotFoundException
     {
         return bookDataAccessService.deleteBookByID(bookId);
     }
 
-    /*
-    public Optional<Book> getBookByID(UUID bookId)
-    {
-        return bookDataAccessService.selectBookByID(bookId);
-    }
-
-    public void updateBookByID(UUID bookId, Book newBook)
-    {
-        bookDataAccessService.updateBookByID(bookId, newBook);
-    }
-
-    public int deleteBook(UUID bookId)
-    {
-        return bookDataAccessService.deleteBookByID(bookId);
-    }
-
-
-     */
 }

@@ -229,4 +229,8 @@ Temporary Items
 # Spring boot config
 src/main/resources/application.properties
 
+# Event logs
+src/main/java/dev/sebastian/library_system/event/Event.java
+src/main/java/dev/sebastian/library_system/event/EventLog.java
+
 # End of https://www.toptal.com/developers/gitignore/api/intellij,macos

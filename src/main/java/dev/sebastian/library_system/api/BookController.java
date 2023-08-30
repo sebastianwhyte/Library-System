@@ -15,14 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/library/v1/books")         // API endpoint for books
+@RequestMapping("/library/v1/books")
 public class BookController
 {
-    // Instance variables
+    /** Instance variables **/
     @Autowired
     private final BookService bookService;
 
@@ -60,18 +59,16 @@ public class BookController
     }
 
 
-    /** Returns the book associated with the given ID. If no such book exists, it returns null
-     *
-     *
+    /**
      * @param bookId    id of the book to search for
      * @return          the book associated with the given id. If it exists in the
      *                  database. If not, then null
      */
     @GetMapping(path = "/{bookId}")
-    public Book getBookByID(@PathVariable("bookId") String bookId)
+    public Book getBookByID(@PathVariable("bookId") String bookId) throws BookNotFoundException
     {
-        return bookService.getBookByID(bookId)
-                .orElse(null);
+        return bookService.getBookByID(bookId);
+
     }
 
 
@@ -88,13 +85,9 @@ public class BookController
      * @param bookId    id of the book to delete
      */
 
-    /*
     @DeleteMapping(path = "/delete/{bookId}")
-    public void deleteBookByID(@PathVariable("bookId") String bookId)
+    public void deleteBookByID(@PathVariable("bookId") String bookId) throws BookNotFoundException
     {
         bookService.deleteBook(bookId);
     }
-
-
-     */
 }
