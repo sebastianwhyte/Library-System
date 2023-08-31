@@ -53,6 +53,11 @@ public class BookService
         return bookDataAccessService.selectBookByID(bookId);
     }
 
+    public List<Book> getBooksWithTitleLike(String title)
+    {
+        return bookDataAccessService.selectBooksWithTitleLike(title);
+    }
+
 
     public void updateBookByID(String bookId, Book newBook)
     {

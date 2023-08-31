@@ -39,7 +39,6 @@ public class Book
      */
 
     public Book(@JsonProperty("bookId") String bookId,
-                //@JsonProperty("bookId") UUID bookId
                 @JsonProperty("title") String title,
                 @JsonProperty("author") String author)
     {
@@ -53,6 +52,8 @@ public class Book
 
     }
 
+
+    /** Getters and setters **/
     public void setTitle(String title)
     {
         this.title = title;
@@ -64,65 +65,40 @@ public class Book
         this.author = author;
     }
 
-    /*
-    public void setBookId(UUID bookId)
-    {
-        this.bookId = bookId;
-    }
-    */
 
     public void setBookId(String bookId)
     {
         this.bookId = bookId;
     }
 
-    /**
-     * @return  the title of this book
-     */
+
     public String getTitle()
     {
         return title;
     }
 
 
-    /**
-     * @return  the author of this book
-     */
     public String getAuthor()
     {
         return author;
     }
 
 
-    /**
-     * @return  the id belonging to this book
-     */
-    /*
-    public UUID getBookId()
-    {
-        return bookId;
-    }
-    */
-
     public String getBookId()
     {
         return bookId;
     }
 
-    /**
-     * @return
-     */
+
     public String getStatus()
     {
         return status;
     }
 
 
-    /**
-     * @param status status to set (if book is active or inactive)
-     */
     public void setStatus(String status)
     {
         this.status = status;
     }
+
 }

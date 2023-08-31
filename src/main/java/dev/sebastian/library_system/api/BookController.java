@@ -72,6 +72,13 @@ public class BookController
     }
 
 
+    @GetMapping(path = "/find/{title}")
+    public List<Book> getBooksWithTitleLike(@PathVariable("title") String title)
+    {
+        return bookService.getBooksWithTitleLike(title);
+    }
+
+
     @PutMapping(path = "/{bookId}")
     public void updateBookByID(@PathVariable("bookId") String bookId,
                                @RequestBody Book bookToUpdate)

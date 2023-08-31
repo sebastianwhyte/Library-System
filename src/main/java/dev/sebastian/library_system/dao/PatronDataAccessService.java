@@ -23,7 +23,7 @@ public class PatronDataAccessService implements PatronDAO
      */
 
     @Override
-    public int insertPatron(UUID id, Patron patron)
+    public int insertPatron(String id, Patron patron)
     {
         patronList.add(new Patron(id, patron.getName(), patron.getStreet(), patron.getCity(),patron.getStateCode(), patron.getZip()));
 
@@ -78,7 +78,7 @@ public class PatronDataAccessService implements PatronDAO
      * @return
      */
     @Override
-    public int updatePatronByID(UUID patronId, Patron newPatron)
+    public int updatePatronByIDs patronId, Patron newPatron)
     {
         return selectPatronByID(patronId)
                 .map(currentPatron-> {

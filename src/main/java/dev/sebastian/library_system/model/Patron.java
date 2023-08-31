@@ -12,16 +12,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-import java.util.UUID;
 
 @Entity
 public class Patron
 {
     /** Instance variables **/
     @Id
-    private UUID patronId;
+    private String patronId;
     private String name;
-    //private String address;
     private String street;
     private String aptNum;      // unit number if the patron lives in an apartment
     private String city;
@@ -46,7 +44,7 @@ public class Patron
      * @param stateCode the patron's state of residence
      * @param zip       the patron's zip code
      */
-    public Patron(@JsonProperty("patronId") UUID patronId,
+    public Patron(@JsonProperty("patronId") String patronId,
                   @JsonProperty("name") String name,
                   @JsonProperty("street") String street,
                   @JsonProperty("city") String city,
@@ -63,27 +61,19 @@ public class Patron
 
     // ---------------------------------------------------------------------------------
 
-    /**
-     * @return  patron's id
-     */
-    public UUID getPatronId()
+    /** Getters and setters **/
+    public String getPatronId()
     {
         return patronId;
     }
 
 
-    /**
-     * @return  the name of this patron
-     */
     public String getName()
     {
         return name;
     }
 
 
-    /**
-     * @return  string representation of the patron's full address
-     */
     public String getAddress()
     {
         return street + ", " + city + ", " + stateCode + ", " + zip;
@@ -99,54 +89,36 @@ public class Patron
     }
 
 
-    /**
-     * @return city the patron lives in
-     */
     public String getCity()
     {
         return city;
     }
 
 
-    /**
-     * @param city  the city to set
-     */
     public void setCity(String city)
     {
         this.city = city;
     }
 
 
-    /**
-     * @return state the patron lives in
-     */
     public String getStateCode()
     {
         return stateCode;
     }
 
 
-    /**
-     * @param stateCode state to set
-     */
     public void setStateCode(String stateCode)
     {
         this.stateCode = stateCode;
     }
 
 
-    /**
-     * @return  patron's zip code
-     */
     public int getZip()
     {
         return zip;
     }
 
 
-    /**
-     * @param zip   zip code to set
-     */
     public void setZip(int zip)
     {
         this.zip = zip;

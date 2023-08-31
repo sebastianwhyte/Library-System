@@ -23,15 +23,20 @@ public interface BookDAO
      */
     default int insertBook(Book book)
     {
-        UUID uuid = UUID.randomUUID();
-
-        String id = uuid.toString();
+        String id = generateID();
 
         // DEBUG
         //System.out.println("UUID ->" + uuid);
         //System.out.println("String UUID ->" + id);
 
         return insertBook(id, book);
+    }
+
+    default String generateID()
+    {
+        UUID uuid = UUID.randomUUID();
+
+        return uuid.toString();
     }
 
 
@@ -56,6 +61,14 @@ public interface BookDAO
      * @return          1 = successful deletion, 0 = failed to delete
      */
     int deleteBookByID(String bookId) throws BookNotFoundException;
+
+
+    /** Finds books with titles that contain the given string
+     *
+     * @param title
+     * @return
+     */
+    List<Book> selectBooksWithTitleLike(String title);
 
 
     /**
