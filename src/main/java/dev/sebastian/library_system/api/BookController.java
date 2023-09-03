@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -72,10 +73,10 @@ public class BookController
     }
 
 
-    @GetMapping(path = "/find/{title}")
-    public List<Book> getBooksWithTitleLike(@PathVariable("title") String title)
+    @GetMapping(path = "/find/{pattern}")
+    public List<Book> getBooksWithTitleLike(@PathVariable("pattern") String pattern)
     {
-        return bookService.getBooksWithTitleLike(title);
+        return bookService.getBooksWithTitleLike(pattern);
     }
 
 

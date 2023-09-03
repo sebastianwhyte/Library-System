@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -53,9 +54,9 @@ public class BookService
         return bookDataAccessService.selectBookByID(bookId);
     }
 
-    public List<Book> getBooksWithTitleLike(String title)
+    public List<Book> getBooksWithTitleLike(String pattern)
     {
-        return bookDataAccessService.selectBooksWithTitleLike(title);
+        return bookDataAccessService.selectBooksWithTitleLike(pattern);
     }
 
 

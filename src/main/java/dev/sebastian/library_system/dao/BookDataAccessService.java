@@ -47,11 +47,11 @@ public class BookDataAccessService implements BookDAO
     @Override
     public int insertBook(String id, Book book)
     {
-        book.setBookId(id);
+        //book.setBookId(id);
 
         String SQL_INSERT_BOOK = "INSERT INTO Book(book_id, title, author, status) VALUES (?,?,?,?)";
 
-        jdbcTemplate.update(SQL_INSERT_BOOK, book.getBookId(), book.getTitle(), book.getAuthor(), book.getStatus());
+        jdbcTemplate.update(SQL_INSERT_BOOK, id, book.getTitle(), book.getAuthor(), book.getStatus());
 
         return 1;
     }
@@ -125,17 +125,15 @@ public class BookDataAccessService implements BookDAO
     /**
      * Finds books with titles that contain the given string
      *
-     * @param title
+     * @param pattern
      * @return
      */
     @Override
-    public List<Book> selectBooksWithTitleLike(String title)
+    public List<Book> selectBooksWithTitleLike(String pattern)
     {
-        // TODO -  create a GetMapping method in BookController and a service method in BookService -SW 08/29/2023
-        // TODO - line below gives a syntax error. Fix it -SW 08/29/2023
-        String SQL_BOOKS_WITH_TITLES_LIKE = "SELECT book_id, title, author FROM Book WHERE title LIKE = ?";
+        String SQL_BOOKS_WITH_TITLES_LIKE = "SELECT book_id, title, author FROM Book WHERE title LIKE ?";
 
-        return jdbcTemplate.queryForList(SQL_BOOKS_WITH_TITLES_LIKE, Book.class, title);
+        return jdbcTemplate.query(SQL_BOOKS_WITH_TITLES_LIKE, new BookMapper(), "%" + pattern + "%");
     }
 
 

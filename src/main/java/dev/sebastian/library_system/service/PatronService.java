@@ -43,19 +43,19 @@ public class PatronService
     }
 
 
-    public Optional<Patron> getPatronByID(UUID patronId)
+    public Patron getPatronByID(String patronId)
     {
         return patronDataAccessService.selectPatronByID(patronId);
     }
 
 
-    public void updatePatronByID(UUID patronId, Patron newPatron)
+    public void updatePatronByID(String patronId, Patron newPatron)
     {
         patronDataAccessService.updatePatronByID(patronId, newPatron);
     }
 
 
-    public int deletePatron(UUID patronId)
+    public int deletePatron(String patronId)
     {
         return patronDataAccessService.deletePatronByID(patronId);
     }

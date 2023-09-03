@@ -1,6 +1,8 @@
 package dev.sebastian.library_system.dao;
 
 import dev.sebastian.library_system.model.Patron;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -9,10 +11,16 @@ import java.util.*;
 public class PatronDataAccessService implements PatronDAO
 {
     /** Instance variables **/
+    @Autowired
+    private final JdbcTemplate jdbcTemplate;
 
-    // Temp storage for patrons. TODO - Implement CRUD operations to mysql database
-    private static List<Patron> patronList = new ArrayList<>();
+    // -------------------------------------------------------------------------
 
+    /** Constructor **/
+    public PatronDataAccessService(JdbcTemplate jdbcTemplate)
+    {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     /**
      * Inserts a patron into the database
@@ -25,7 +33,7 @@ public class PatronDataAccessService implements PatronDAO
     @Override
     public int insertPatron(String id, Patron patron)
     {
-        patronList.add(new Patron(id, patron.getName(), patron.getStreet(), patron.getCity(),patron.getStateCode(), patron.getZip()));
+        //patronList.add(new Patron(id, patron.getName(), patron.getStreet(), patron.getCity(),patron.getStateCode(), patron.getZip()));
 
         return 1;
     }
@@ -38,11 +46,16 @@ public class PatronDataAccessService implements PatronDAO
      * @return
      */
     @Override
-    public Optional<Patron> selectPatronByID(UUID patronId)
+    public Patron selectPatronByID(String patronId)
     {
+        /*
         return patronList.stream()
                 .filter(patron -> patron.getPatronId().equals(patronId))
                 .findFirst();
+
+         */
+
+        return null;
     }
 
 
@@ -53,18 +66,9 @@ public class PatronDataAccessService implements PatronDAO
      * @return
      */
     @Override
-    public int deletePatronByID(UUID patronId)
+    public int deletePatronByID(String patronId)
     {
-        Optional<Patron> patron = selectPatronByID(patronId);
-
-        // If optional is empty, then we couldn't find the specified patron in the database.
-        if (patron.isEmpty())
-        {
-            return 0;
-        }
-
-        // Otherwise, get the patron object and remove it
-        patronList.remove(patron.get());
+        Patron patron = selectPatronByID(patronId);
 
         return 1;
     }
@@ -78,8 +82,10 @@ public class PatronDataAccessService implements PatronDAO
      * @return
      */
     @Override
-    public int updatePatronByIDs patronId, Patron newPatron)
+    public int updatePatronByID (String patronId, Patron newPatron)
     {
+
+        /*
         return selectPatronByID(patronId)
                 .map(currentPatron-> {
                     int indexOfPatronToUpdate = patronList.indexOf(currentPatron);
@@ -96,6 +102,11 @@ public class PatronDataAccessService implements PatronDAO
                     return 0;
                 })
                 .orElse(0);
+
+         */
+
+
+        return 1;
     }
 
 
@@ -107,7 +118,7 @@ public class PatronDataAccessService implements PatronDAO
     @Override
     public List<Patron> selectAllPatrons()
     {
-        return patronList;
+        return new ArrayList<>();
     }
 
 }

@@ -18,7 +18,7 @@ public interface PatronDAO
      * @param patron
      * @return
      */
-    int insertPatron(UUID id, Patron patron);
+    int insertPatron(String id, Patron patron);
 
 
     /** Randomly generates an id for the specified patron who does not have an id
@@ -29,7 +29,8 @@ public interface PatronDAO
      */
     default int insertPatron(Patron patron)
     {
-        UUID id = UUID.randomUUID();
+        UUID uuid = UUID.randomUUID();
+        String id = uuid.toString();
 
         return insertPatron(id, patron);
     }
@@ -40,7 +41,7 @@ public interface PatronDAO
      * @param patronId
      * @return
      */
-    Optional<Patron> selectPatronByID(UUID patronId);
+    Patron selectPatronByID(String patronId);
 
 
     /** Updates the record of the patron with the given ID
@@ -49,7 +50,7 @@ public interface PatronDAO
      * @param newPatron
      * @return
      */
-    int updatePatronByID(UUID patronId, Patron newPatron);
+    int updatePatronByID(String patronId, Patron newPatron);
 
 
     /** Deletes a person by looking up their assigned id
@@ -57,7 +58,7 @@ public interface PatronDAO
      * @param patronId
      * @return
      */
-    int deletePatronByID(UUID patronId);
+    int deletePatronByID(String patronId);
 
 
     /** Selects and returns all patrons in the database

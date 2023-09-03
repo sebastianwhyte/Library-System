@@ -4,6 +4,7 @@ import dev.sebastian.library_system.exception.BookNotFoundException;
 import dev.sebastian.library_system.model.Book;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -23,7 +24,8 @@ public interface BookDAO
      */
     default int insertBook(Book book)
     {
-        String id = generateID();
+        UUID uuid = UUID.randomUUID();
+        String id = uuid.toString();
 
         // DEBUG
         //System.out.println("UUID ->" + uuid);
@@ -32,12 +34,6 @@ public interface BookDAO
         return insertBook(id, book);
     }
 
-    default String generateID()
-    {
-        UUID uuid = UUID.randomUUID();
-
-        return uuid.toString();
-    }
 
 
     /**
@@ -65,10 +61,10 @@ public interface BookDAO
 
     /** Finds books with titles that contain the given string
      *
-     * @param title
+     * @param pattern
      * @return
      */
-    List<Book> selectBooksWithTitleLike(String title);
+    List<Book> selectBooksWithTitleLike(String pattern);
 
 
     /**

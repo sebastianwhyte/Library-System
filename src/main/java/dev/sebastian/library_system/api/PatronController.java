@@ -71,15 +71,14 @@ public class PatronController
      * @return              patron with the specified id, if they are currently in database
      */
     @GetMapping(path = "/{patronId}")
-    public Patron getPatronByID(@PathVariable("patronId") UUID patronId)
+    public Patron getPatronByID(@PathVariable("patronId") String patronId)
     {
-        return patronService.getPatronByID(patronId)
-                .orElse(null);
+        return patronService.getPatronByID(patronId);
     }
 
 
     @PutMapping(path = "/{patronId}")
-    public void updatePatronByID(@PathVariable("patronId") UUID patronId,
+    public void updatePatronByID(@PathVariable("patronId") String patronId,
                                  @RequestBody Patron patronToUpdate)
     {
         patronService.updatePatronByID(patronId, patronToUpdate);
@@ -90,7 +89,7 @@ public class PatronController
      * @param patronId      the patron's id
      */
     @DeleteMapping(path = "/delete/{patronId}")
-    public void deletePatronID(@PathVariable("patronId") UUID patronId)
+    public void deletePatronID(@PathVariable("patronId") String patronId)
     {
         patronService.deletePatron(patronId);
     }
