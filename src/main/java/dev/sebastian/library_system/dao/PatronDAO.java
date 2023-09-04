@@ -4,6 +4,8 @@
 
 package dev.sebastian.library_system.dao;
 
+import dev.sebastian.library_system.exception.PatronNotFoundException;
+import dev.sebastian.library_system.model.Book;
 import dev.sebastian.library_system.model.Patron;
 
 import java.util.List;
@@ -41,7 +43,7 @@ public interface PatronDAO
      * @param patronId
      * @return
      */
-    Patron selectPatronByID(String patronId);
+    Patron selectPatronByID(String patronId) throws PatronNotFoundException;
 
 
     /** Updates the record of the patron with the given ID
@@ -58,7 +60,7 @@ public interface PatronDAO
      * @param patronId
      * @return
      */
-    int deletePatronByID(String patronId);
+    int deletePatronByID(String patronId) throws PatronNotFoundException;
 
 
     /** Selects and returns all patrons in the database
@@ -67,4 +69,6 @@ public interface PatronDAO
      */
     List<Patron> selectAllPatrons();
 
+
+    List<Patron> selectPatronsWithNameLike(String pattern);
 }

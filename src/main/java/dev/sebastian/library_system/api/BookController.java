@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 
 @RestController
@@ -38,9 +37,8 @@ public class BookController
     }
 
 
-    /** Adds a book to the database. @RequestBody reads the JSON response body.
-     *
-     * @param book      book to add
+    /**
+     * @param book      book to add to database
      */
     @PostMapping(path = "/add")
     public void addBook(@RequestBody Book book)
@@ -73,6 +71,10 @@ public class BookController
     }
 
 
+    /**
+     * @param pattern   pattern to match
+     * @return          books with titles matching the given pattern
+     */
     @GetMapping(path = "/find/{pattern}")
     public List<Book> getBooksWithTitleLike(@PathVariable("pattern") String pattern)
     {
@@ -80,7 +82,12 @@ public class BookController
     }
 
 
-    @PutMapping(path = "/{bookId}")
+    /** Replaces a book with the given id with another book
+     *
+     * @param bookId    id of the book to replace
+     * @param bookToUpdate      new book to insert into database
+     */
+    @PutMapping(path = "/update/{bookId}")
     public void updateBookByID(@PathVariable("bookId") String bookId,
                                @RequestBody Book bookToUpdate)
     {
@@ -88,14 +95,13 @@ public class BookController
     }
 
 
-    /** Deletes the book with the given id
-     *
+    /**
      * @param bookId    id of the book to delete
      */
 
     @DeleteMapping(path = "/delete/{bookId}")
     public void deleteBookByID(@PathVariable("bookId") String bookId) throws BookNotFoundException
     {
-        bookService.deleteBook(bookId);
+        bookService.deleteBookByID(bookId);
     }
 }

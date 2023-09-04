@@ -38,17 +38,14 @@ public class BookDataAccessService implements BookDAO
 
 
     /**
-     * Inserts the given book into the database
      *
-     * @param id
-     * @param book book to add to database
+     * @param id        id of the book
+     * @param book      book to add to database
      * @return integer  1 = successful insertion, 0 = insertion failed
      */
     @Override
     public int insertBook(String id, Book book)
     {
-        //book.setBookId(id);
-
         String SQL_INSERT_BOOK = "INSERT INTO Book(book_id, title, author, status) VALUES (?,?,?,?)";
 
         jdbcTemplate.update(SQL_INSERT_BOOK, id, book.getTitle(), book.getAuthor(), book.getStatus());
@@ -58,7 +55,7 @@ public class BookDataAccessService implements BookDAO
 
 
     /**
-     * @param bookId id of the desired book
+     * @param bookId    id of the desired book
      * @return the book with the given id, if it is in the database.
      */
 
@@ -81,52 +78,11 @@ public class BookDataAccessService implements BookDAO
         return selectedBook;
     }
 
-
-    /**
-     * Updates the book currently assigned with the given id
-     *
-     * @param bookId   id of book to update
-     * @param newBook
-     * @return integer      1 = successful insertion, 0 = insertion failed
-     */
-    public int updateBookByID(String bookId, Book newBook)
-    {
-        String SQL_UPDATE_BOOK_BY_ID = "UPDATE Book SET title = ?, author = ? WHERE book_id = ?";
-
-        jdbcTemplate.update(SQL_UPDATE_BOOK_BY_ID, newBook.getTitle(), newBook.getAuthor(), bookId);
-
-        return 1;
-    }
-
-
-    /**
-     * @param bookId
-     * @return  1 = successful deletion, 0 = failed deletion
-     */
-    @Override
-    public int deleteBookByID(String bookId) throws BookNotFoundException
-    {
-        Book book = selectBookByID(bookId);
-
-        if (book == null)
-        {
-            throw new BookNotFoundException("Book with id: " + bookId + " not found in database!");
-        }
-
-        String SQL_DELETE_BOOK_BY_ID = "DELETE FROM Book WHERE book_id = ?";
-
-        jdbcTemplate.update(SQL_DELETE_BOOK_BY_ID, bookId);
-
-        return 1;
-
-    }
-
-
     /**
      * Finds books with titles that contain the given string
      *
-     * @param pattern
-     * @return
+     * @param pattern   pattern to match
+     * @return  books with titles matching the given pattern
      */
     @Override
     public List<Book> selectBooksWithTitleLike(String pattern)
@@ -148,5 +104,44 @@ public class BookDataAccessService implements BookDAO
         String SQL_SELECT_ALL_BOOKS = "SELECT book_id, title, author FROM Book";
 
         return jdbcTemplate.query(SQL_SELECT_ALL_BOOKS, new BookMapper());
+    }
+
+    /**
+     * Replaces a book with the given id with another book
+     *
+     * @param bookId    id of the book to replace
+     * @param newBook   new book to insert into database
+     * @return integer      1 = successful insertion, 0 = insertion failed
+     */
+    public int updateBookByID(String bookId, Book newBook)
+    {
+        String SQL_UPDATE_BOOK_BY_ID = "UPDATE Book SET title = ?, author = ? WHERE book_id = ?";
+
+        jdbcTemplate.update(SQL_UPDATE_BOOK_BY_ID, newBook.getTitle(), newBook.getAuthor(), bookId);
+
+        return 1;
+    }
+
+
+    /**
+     * @param bookId    id of the book to delete
+     * @return  1 = successful deletion, 0 = failed deletion
+     */
+    @Override
+    public int deleteBookByID(String bookId) throws BookNotFoundException
+    {
+        Book book = selectBookByID(bookId);
+
+        if (book == null)
+        {
+            throw new BookNotFoundException("Book with id: " + bookId + " not found in database!");
+        }
+
+        String SQL_DELETE_BOOK_BY_ID = "DELETE FROM Book WHERE book_id = ?";
+
+        jdbcTemplate.update(SQL_DELETE_BOOK_BY_ID, bookId);
+
+        return 1;
+
     }
 }

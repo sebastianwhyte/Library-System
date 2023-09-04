@@ -19,12 +19,14 @@ public class Patron
     /** Instance variables **/
     @Id
     private String patronId;
-    private String name;
+    private String firstName;
+
+    private String lastName;
     private String street;
     private String aptNum;      // unit number if the patron lives in an apartment
     private String city;
     private String stateCode;
-    private int zip;
+    private String zip;
 
     // ---------------------------------------------------------------------------------
 
@@ -35,25 +37,30 @@ public class Patron
 
     /** Constructor
      *
-     *  Creates a record for a person/patron with the given info
+     *  Creates a new record for a person/patron
      *
-     * @param name      the patron's name
+     * @param firstName
+     * @param lastName
      * @param street    the street the patron lives on
-     * //@param aptNum    the unit of the patron's apartment
+     * @param aptNum    the unit of the patron's apartment
      * @param city      the patron's city
      * @param stateCode the patron's state of residence
      * @param zip       the patron's zip code
      */
     public Patron(@JsonProperty("patronId") String patronId,
-                  @JsonProperty("name") String name,
+                  @JsonProperty("first_name") String firstName,
+                  @JsonProperty("last_name") String lastName,
                   @JsonProperty("street") String street,
+                  @JsonProperty("apt_num") String aptNum,
                   @JsonProperty("city") String city,
-                  @JsonProperty("stateCode") String stateCode,
-                  @JsonProperty("zip") int zip)
+                  @JsonProperty("state_code") String stateCode,
+                  @JsonProperty("zip") String zip)
     {
         this.patronId = patronId;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.street = street;
+        this.aptNum = aptNum;
         this.city = city;
         this.stateCode = stateCode;
         this.zip = zip;
@@ -68,11 +75,31 @@ public class Patron
     }
 
 
-    public String getName()
+    public void setPatronId(String patronId)
     {
-        return name;
+        this.patronId = patronId;
     }
 
+
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
+    }
 
     public String getAddress()
     {
@@ -80,14 +107,26 @@ public class Patron
     }
 
 
-    /**
-     * @return street the patron lives on
-     */
     public String getStreet()
     {
         return street;
     }
 
+
+    public void setStreet(String street)
+    {
+        this.street = street;
+    }
+
+    public String getAptNum()
+    {
+        return aptNum;
+    }
+
+    public void setAptNum(String aptNum)
+    {
+        this.aptNum = aptNum;
+    }
 
     public String getCity()
     {
@@ -113,13 +152,13 @@ public class Patron
     }
 
 
-    public int getZip()
+    public String getZip()
     {
         return zip;
     }
 
 
-    public void setZip(int zip)
+    public void setZip(String zip)
     {
         this.zip = zip;
     }

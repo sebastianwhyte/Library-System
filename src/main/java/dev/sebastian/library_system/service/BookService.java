@@ -66,7 +66,7 @@ public class BookService
     }
 
 
-    public int deleteBook(String bookId) throws BookNotFoundException
+    public int deleteBookByID(String bookId) throws BookNotFoundException
     {
         return bookDataAccessService.deleteBookByID(bookId);
     }

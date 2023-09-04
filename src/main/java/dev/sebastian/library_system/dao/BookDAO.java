@@ -27,13 +27,8 @@ public interface BookDAO
         UUID uuid = UUID.randomUUID();
         String id = uuid.toString();
 
-        // DEBUG
-        //System.out.println("UUID ->" + uuid);
-        //System.out.println("String UUID ->" + id);
-
         return insertBook(id, book);
     }
-
 
 
     /**
@@ -43,10 +38,10 @@ public interface BookDAO
     Book selectBookByID(String bookId) throws BookNotFoundException;
 
 
-    /** Updates the book currently assigned with the given id
+    /** Replaces a book with the given id with another book
      *
-     * @param id    id of book to update
-     * @param newBook
+     * @param id    id of the book to replace
+     * @param newBook   new book to insert into database
      * @return integer      1 = successful insertion, 0 = insertion failed
      */
     int updateBookByID(String id, Book newBook);
@@ -61,8 +56,8 @@ public interface BookDAO
 
     /** Finds books with titles that contain the given string
      *
-     * @param pattern
-     * @return
+     * @param pattern   pattern to match
+     * @return  books with titles matching the given pattern
      */
     List<Book> selectBooksWithTitleLike(String pattern);
 

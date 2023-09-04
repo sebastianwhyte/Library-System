@@ -9,6 +9,7 @@
 package dev.sebastian.library_system.service;
 
 import dev.sebastian.library_system.dao.PatronDataAccessService;
+import dev.sebastian.library_system.exception.PatronNotFoundException;
 import dev.sebastian.library_system.model.Patron;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class PatronService
     }
 
 
-    public Patron getPatronByID(String patronId)
+    public Patron getPatronByID(String patronId) throws PatronNotFoundException
     {
         return patronDataAccessService.selectPatronByID(patronId);
     }
@@ -55,7 +56,17 @@ public class PatronService
     }
 
 
-    public int deletePatron(String patronId)
+    public int deletePatronByID(String patronId) throws PatronNotFoundException
+    {
+        return patronDataAccessService.deletePatronByID(patronId);
+    }
+
+    public List<Patron> getPatronsWithNameLike(String pattern)
+    {
+        return patronDataAccessService.selectPatronsWithNameLike(pattern);
+    }
+
+    public int deletePatron(String patronId) throws PatronNotFoundException
     {
         return patronDataAccessService.deletePatronByID(patronId);
     }

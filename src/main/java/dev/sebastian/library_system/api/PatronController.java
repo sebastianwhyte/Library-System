@@ -16,6 +16,8 @@
 
 package dev.sebastian.library_system.api;
 
+import dev.sebastian.library_system.exception.PatronNotFoundException;
+import dev.sebastian.library_system.model.Book;
 import dev.sebastian.library_system.model.Patron;
 import dev.sebastian.library_system.service.PatronService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,7 @@ public class PatronController
 
     /** Inserts the patron into the database.
      *
-     * @param patron
+     * @param patron    patron to add to database
      */
     @PostMapping(path = "/add")
     public void addPatron(@RequestBody Patron patron)
@@ -71,13 +73,24 @@ public class PatronController
      * @return              patron with the specified id, if they are currently in database
      */
     @GetMapping(path = "/{patronId}")
-    public Patron getPatronByID(@PathVariable("patronId") String patronId)
+    public Patron getPatronByID(@PathVariable("patronId") String patronId) throws PatronNotFoundException
     {
         return patronService.getPatronByID(patronId);
     }
 
 
-    @PutMapping(path = "/{patronId}")
+    /**
+     * @param pattern   pattern to match
+     * @return          books with titles matching the given pattern
+     */
+    @GetMapping(path = "/find/{pattern}")
+    public List<Patron> getPatronsWithNameLike(@PathVariable("pattern") String pattern)
+    {
+        return patronService.getPatronsWithNameLike(pattern);
+    }
+
+
+    @PutMapping(path = "/update/{patronId}")
     public void updatePatronByID(@PathVariable("patronId") String patronId,
                                  @RequestBody Patron patronToUpdate)
     {
@@ -89,7 +102,7 @@ public class PatronController
      * @param patronId      the patron's id
      */
     @DeleteMapping(path = "/delete/{patronId}")
-    public void deletePatronID(@PathVariable("patronId") String patronId)
+    public void deletePatronID(@PathVariable("patronId") String patronId) throws PatronNotFoundException
     {
         patronService.deletePatron(patronId);
     }
