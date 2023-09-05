@@ -9,6 +9,7 @@
 package dev.sebastian.library_system.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -18,14 +19,28 @@ public class Patron
 {
     /** Instance variables **/
     @Id
+    @Column(name = "patron_id")
     private String patronId;
+
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "street")
     private String street;
+
+    @Column(name = "apt_num")
     private String aptNum;      // unit number if the patron lives in an apartment
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "state_code")
     private String stateCode;
+
+    @Column(name = "zip")
     private String zip;
 
     // ---------------------------------------------------------------------------------

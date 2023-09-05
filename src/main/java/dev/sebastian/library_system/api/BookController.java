@@ -82,9 +82,9 @@ public class BookController
     }
 
 
-    /** Replaces a book with the given id with another book
+    /** Replaces a book assigned to the given id with another book
      *
-     * @param bookId    id of the book to replace
+     * @param bookId            id of the book to be replaced
      * @param bookToUpdate      new book to insert into database
      */
     @PutMapping(path = "/update/{bookId}")
@@ -98,7 +98,6 @@ public class BookController
     /**
      * @param bookId    id of the book to delete
      */
-
     @DeleteMapping(path = "/delete/{bookId}")
     public void deleteBookByID(@PathVariable("bookId") String bookId) throws BookNotFoundException
     {

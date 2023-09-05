@@ -17,14 +17,12 @@
 package dev.sebastian.library_system.api;
 
 import dev.sebastian.library_system.exception.PatronNotFoundException;
-import dev.sebastian.library_system.model.Book;
 import dev.sebastian.library_system.model.Patron;
 import dev.sebastian.library_system.service.PatronService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 
 @RestController
@@ -89,7 +87,11 @@ public class PatronController
         return patronService.getPatronsWithNameLike(pattern);
     }
 
-
+    /** Replaces a patron assigned to the given id with another patron
+     *
+     * @param patronId          id of patron to be replaced
+     * @param patronToUpdate    new patron
+     */
     @PutMapping(path = "/update/{patronId}")
     public void updatePatronByID(@PathVariable("patronId") String patronId,
                                  @RequestBody Patron patronToUpdate)
@@ -104,6 +106,6 @@ public class PatronController
     @DeleteMapping(path = "/delete/{patronId}")
     public void deletePatronID(@PathVariable("patronId") String patronId) throws PatronNotFoundException
     {
-        patronService.deletePatron(patronId);
+        patronService.deletePatronByID(patronId);
     }
 }

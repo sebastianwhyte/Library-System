@@ -15,13 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class PatronService
 {
-    // Instance variables
+    /** Instance variables **/
     private final PatronDataAccessService patronDataAccessService;
     // ---------------------------------------------------------------------------------
 
@@ -61,13 +59,10 @@ public class PatronService
         return patronDataAccessService.deletePatronByID(patronId);
     }
 
+
     public List<Patron> getPatronsWithNameLike(String pattern)
     {
         return patronDataAccessService.selectPatronsWithNameLike(pattern);
     }
 
-    public int deletePatron(String patronId) throws PatronNotFoundException
-    {
-        return patronDataAccessService.deletePatronByID(patronId);
-    }
 }

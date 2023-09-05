@@ -1,6 +1,11 @@
+/**
+ * @author Sebastian Whyte
+ * @date 09/05/2023
+ * @version v1.0
+ */
+
 package dev.sebastian.library_system.mapper;
 
-import dev.sebastian.library_system.model.Book;
 import dev.sebastian.library_system.model.Patron;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -19,7 +24,6 @@ public class PatronMapper implements RowMapper<Patron>
     @Override
     public Patron mapRow(ResultSet resultSet, int rowNum) throws SQLException
     {
-        // TODO - Fix the 500 error code that occurs when trying to delete patron (also check PatronDataAccessService class) - 09/04/2023
         Patron patron = new Patron();
 
         patron.setPatronId(resultSet.getString("patron_id"));

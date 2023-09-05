@@ -14,10 +14,11 @@ CREATE TABLE Book
 CREATE TABLE Patron
 (
     patron_id VARCHAR(128) PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    street VARCHAR(255),
-    city VARCHAR(255) NOT NULL,
-    apt_num VARCHAR(10),
-    stateCode CHAR(2) NOT NULL,
-    zip INT NOT NULL
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    street VARCHAR(80),
+    apt_num VARCHAR(5),
+    city VARCHAR(50) NOT NULL,
+    stateCode VARCHAR(2) NOT NULL,
+    zip VARCHAR(5) NOT NULL
 );

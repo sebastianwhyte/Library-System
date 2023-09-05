@@ -1,10 +1,14 @@
+/**  Provides a means of accessing the database's Patron Table.
+ *
+ * @author Sebastian Whyte
+ * @date 09/05/2023
+ * @version v1.0
+ */
+
 package dev.sebastian.library_system.dao;
 
-import dev.sebastian.library_system.exception.BookNotFoundException;
 import dev.sebastian.library_system.exception.PatronNotFoundException;
-import dev.sebastian.library_system.mapper.BookMapper;
 import dev.sebastian.library_system.mapper.PatronMapper;
-import dev.sebastian.library_system.model.Book;
 import dev.sebastian.library_system.model.Patron;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-@Repository//("mysql")
+@Repository
 public class PatronDataAccessService implements PatronDAO
 {
     /** Instance variables **/
@@ -29,11 +33,9 @@ public class PatronDataAccessService implements PatronDAO
     }
 
     /**
-     * Inserts a patron into the database
-     *
-     * @param id
-     * @param patron
-     * @return
+     * @param id        id of the new patron
+     * @param patron    patron object with info regarding this patron
+     * @return          1 = successful insertion
      */
 
     @Override
@@ -50,10 +52,8 @@ public class PatronDataAccessService implements PatronDAO
 
 
     /**
-     * Selects a specific patron by looking up their assigned id
-     *
      * @param patronId      id of the patron
-     * @return
+     * @return              patron with the specified id
      */
     @Override
     public Patron selectPatronByID(String patronId) throws PatronNotFoundException
@@ -62,7 +62,7 @@ public class PatronDataAccessService implements PatronDAO
 
         try
         {
-            String SQL_SELECT_PATRON_BY_ID = "SELECT patron_id, first_name, last_name, city, state_code FROM Patron WHERE patron_id = ?";
+            String SQL_SELECT_PATRON_BY_ID = "SELECT * FROM Patron WHERE patron_id = ?";
 
             selectedPatron = jdbcTemplate.queryForObject(SQL_SELECT_PATRON_BY_ID, new PatronMapper(), patronId);
         }
@@ -77,8 +77,6 @@ public class PatronDataAccessService implements PatronDAO
 
 
     /**
-     * Selects and returns all patrons in the database
-     *
      * @return all patrons currently in the database
      */
     @Override
@@ -98,9 +96,9 @@ public class PatronDataAccessService implements PatronDAO
      */
     public List<Patron> selectPatronsWithNameLike(String pattern)
     {
-        String SQL_PATRONS_WITH_NAMES_LIKE = "SELECT patron_id, first_name, last_name, city, state_code FROM Patron WHERE first_name LIKE ? OR last_name LIKE ?";
+        String SQL_PATRONS_WITH_NAMES_LIKE = "SELECT * FROM Patron WHERE first_name LIKE ? OR last_name LIKE ?";
 
-        return jdbcTemplate.query(SQL_PATRONS_WITH_NAMES_LIKE, new PatronMapper(), "%" + pattern + "%");
+        return jdbcTemplate.query(SQL_PATRONS_WITH_NAMES_LIKE, new PatronMapper(), "%" + pattern + "%", "%" + pattern + "%");
     }
 
 

@@ -5,11 +5,9 @@
 package dev.sebastian.library_system.dao;
 
 import dev.sebastian.library_system.exception.PatronNotFoundException;
-import dev.sebastian.library_system.model.Book;
 import dev.sebastian.library_system.model.Patron;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface PatronDAO
@@ -70,5 +68,9 @@ public interface PatronDAO
     List<Patron> selectAllPatrons();
 
 
+    /** Finds patrons whose first name or last name matches a given string
+     * @param pattern   pattern to match
+     * @return          books with titles matching the given pattern
+     */
     List<Patron> selectPatronsWithNameLike(String pattern);
 }
