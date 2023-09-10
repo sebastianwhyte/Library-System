@@ -10,6 +10,7 @@ import dev.sebastian.library_system.exception.BookNotFoundException;
 import dev.sebastian.library_system.mapper.BookMapper;
 import dev.sebastian.library_system.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -48,11 +49,29 @@ public class BookDataAccessService implements BookDAO
     {
         String SQL_INSERT_BOOK = "INSERT INTO Book(book_id, title, author, status) VALUES (?,?,?,?)";
 
-        jdbcTemplate.update(SQL_INSERT_BOOK, id, book.getTitle(), book.getAuthor(), book.getStatus());
+        try
+        {
+            jdbcTemplate.update(SQL_INSERT_BOOK, id, book.getTitle(), book.getAuthor(), book.getStatus());
+        }
+        catch (DataAccessException exception)
+        {
+            return 0;
+        }
 
         return 1;
     }
 
+    /*
+    @Override
+    public int insertBook(String id, Book book)
+    {
+        String SQL_INSERT_BOOK = "INSERT INTO Book(book_id, title, author, status) VALUES (?,?,?,?)";
+
+        jdbcTemplate.update(SQL_INSERT_BOOK, id, book.getTitle(), book.getAuthor(), book.getStatus());
+
+        return 1;
+    }
+    */
 
     /**
      * @param bookId    id of the desired book

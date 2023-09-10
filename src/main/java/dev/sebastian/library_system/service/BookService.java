@@ -23,6 +23,8 @@ import java.util.Map;
 public class BookService
 {
     /** Instance variables **/
+
+    @Autowired
     private final BookDataAccessService bookDataAccessService;
 
     // ---------------------------------------------------------------------------------
