@@ -131,6 +131,7 @@ public class PatronDataAccessService implements PatronDAO
     {
         Patron patron = selectPatronByID(patronId);
 
+        // If the selected patron can't be found
         if (patron == null)
         {
             throw new PatronNotFoundException("Patron with id: " + patronId + " not found in database!");

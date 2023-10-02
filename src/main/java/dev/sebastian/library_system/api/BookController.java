@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -52,7 +53,7 @@ public class BookController
      * @return      list of all books in the database
      */
     @GetMapping(path = "/all")
-    public List<Book> getAllBooks()
+    public List<Map<String, Object>> getAllBooks()
     {
         return bookService.getAllBooks();
     }

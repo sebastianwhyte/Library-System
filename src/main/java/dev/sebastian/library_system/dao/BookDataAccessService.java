@@ -47,11 +47,13 @@ public class BookDataAccessService implements BookDAO
     @Override
     public int insertBook(String id, Book book)
     {
+        book.setBookId(id);
+
         String SQL_INSERT_BOOK = "INSERT INTO Book(book_id, title, author, status) VALUES (?,?,?,?)";
 
         try
         {
-            jdbcTemplate.update(SQL_INSERT_BOOK, id, book.getTitle(), book.getAuthor(), book.getStatus());
+            jdbcTemplate.update(SQL_INSERT_BOOK, book.getBookId(), book.getTitle(), book.getAuthor(), book.getStatus());
         }
         catch (DataAccessException exception)
         {
@@ -61,17 +63,6 @@ public class BookDataAccessService implements BookDAO
         return 1;
     }
 
-    /*
-    @Override
-    public int insertBook(String id, Book book)
-    {
-        String SQL_INSERT_BOOK = "INSERT INTO Book(book_id, title, author, status) VALUES (?,?,?,?)";
-
-        jdbcTemplate.update(SQL_INSERT_BOOK, id, book.getTitle(), book.getAuthor(), book.getStatus());
-
-        return 1;
-    }
-    */
 
     /**
      * @param bookId    id of the desired book
@@ -118,12 +109,24 @@ public class BookDataAccessService implements BookDAO
      * @return list of books currently in the database
      */
     @Override
+    public List<Map<String, Object>> selectAllBooks()
+    {
+        String SQL_SELECT_ALL_BOOKS = "SELECT book_id, title, author FROM Book";
+
+        return jdbcTemplate.queryForList(SQL_SELECT_ALL_BOOKS);
+
+    }
+
+    /*
+    @Override
     public List<Book> selectAllBooks()
     {
         String SQL_SELECT_ALL_BOOKS = "SELECT book_id, title, author FROM Book";
 
         return jdbcTemplate.query(SQL_SELECT_ALL_BOOKS, new BookMapper());
     }
+    */
+
 
     /**
      * Replaces a book with the given id with another book

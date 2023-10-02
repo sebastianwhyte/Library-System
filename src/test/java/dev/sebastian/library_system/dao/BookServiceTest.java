@@ -16,7 +16,7 @@ public class BookServiceTest
     @Autowired
     private BookService bookService;
 
-    // First 2 ests work
+    // First 2 tests work
     @Test
     void bookInsertionShouldPass()
     {
@@ -30,39 +30,55 @@ public class BookServiceTest
     {
         Book book = new Book();
 
-        book.setBookId("456");
-        book.setTitle("Crash");
-
         assertEquals(0, bookService.addBook(book));
     }
+
 
     @Test
     void shouldReturnBookAfterSelectingBookByID() throws BookNotFoundException
     {
-        // Call the insert book method from bookService first
-        // Then try to select the book by using its id
-        // Should expect successful selection
-        bookService.addBook(new Book("123456789", "Naruto", "Masashi Kishimoto"));
+        /* Call the insert book method from bookService first
+         * Then try to select the book by using its id
+         * Should expect successful selection
+        */
 
-        Book selectedBook = bookService.getBookByID("123456789");
+        Book book = new Book();
+        book.setTitle("Crash");
+        book.setAuthor("Jerry Spinelli");
 
-        //assertThrows(BookNotFoundException);
+        bookService.addBook(book);
+
+        Book selectedBook = bookService.getBookByID(book.getBookId());
+
+        // Check if the book was returned
+        assertNotNull(selectedBook);
+    }
+
+
+    @Test
+    void shouldThrowExceptionIfBookIsNotFound()
+    {
+
     }
 
     @Test
-    void updateBookByID()
+    void shouldUpdateOldBookWithNewBookWhenGivenID() throws BookNotFoundException
     {
+
     }
+
 
     @Test
     void deleteBookByID()
     {
     }
 
+
     @Test
     void selectBooksWithTitleLike()
     {
     }
+
 
     @Test
     void selectAllBooks()

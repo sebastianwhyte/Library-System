@@ -118,7 +118,7 @@ public class Patron
 
     public String getAddress()
     {
-        return street + ", " + city + ", " + stateCode + ", " + zip;
+        return street + ", " + aptNum + "," + city + ", " + stateCode + ", " + zip;
     }
 
 

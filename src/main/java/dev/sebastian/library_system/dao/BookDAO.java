@@ -4,6 +4,7 @@ import dev.sebastian.library_system.exception.BookNotFoundException;
 import dev.sebastian.library_system.model.Book;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -64,6 +65,7 @@ public interface BookDAO
     /**
      * @return  list of books currently in the database
      */
-    List<Book> selectAllBooks();
+    List<Map<String, Object>> selectAllBooks();
+    //List<Book> selectAllBooks();
 
 }

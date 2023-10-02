@@ -45,11 +45,16 @@ public class BookService
     }
 
 
+    /*
     public List<Book> getAllBooks()
     {
         return bookDataAccessService.selectAllBooks();
     }
-
+    */
+    public List<Map<String, Object>> getAllBooks()
+    {
+        return bookDataAccessService.selectAllBooks();
+    }
 
     public Book getBookByID(String bookId) throws BookNotFoundException
     {
