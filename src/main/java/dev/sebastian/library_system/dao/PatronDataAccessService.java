@@ -68,7 +68,6 @@ public class PatronDataAccessService implements PatronDAO
         }
         catch (EmptyResultDataAccessException exception)
         {
-            //logger.("BookDataAccessService :: selectBookByID() : " + exception);
             throw new PatronNotFoundException("Patron with id: " + patronId + " not found in database!");
         }
 

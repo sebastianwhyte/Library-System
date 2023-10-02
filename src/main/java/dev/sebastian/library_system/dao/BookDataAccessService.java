@@ -81,7 +81,6 @@ public class BookDataAccessService implements BookDAO
         }
         catch (EmptyResultDataAccessException exception)
         {
-            //logger.("BookDataAccessService :: selectBookByID() : " + exception);
             throw new BookNotFoundException("Book with id: " + bookId + " not found in database!");
         }
 
@@ -116,16 +115,6 @@ public class BookDataAccessService implements BookDAO
         return jdbcTemplate.queryForList(SQL_SELECT_ALL_BOOKS);
 
     }
-
-    /*
-    @Override
-    public List<Book> selectAllBooks()
-    {
-        String SQL_SELECT_ALL_BOOKS = "SELECT book_id, title, author FROM Book";
-
-        return jdbcTemplate.query(SQL_SELECT_ALL_BOOKS, new BookMapper());
-    }
-    */
 
 
     /**
