@@ -101,7 +101,7 @@ curl -X DELETE -H "Content-Type: application/json" http://localhost:8080/library
 
 Params:
 
-id &emsp;   id of the book to be deleted (required) \
+id &emsp;   id of the book to be deleted (required)
 
 
 <br/>
@@ -160,7 +160,7 @@ street &emsp; - &emsp;    street the patron lives on (optional) \
 apt_num &emsp; - &emsp;   unit number if patron lives in an apartment (optional) \
 city &emsp; - &emsp;   city the patron lives in (required) \
 state_code &emsp; - &emsp;   state the patron lives in (required) \
-zip &emsp; &emsp; - &emsp;    zip code of the city the patron lives in (required) \
+zip &emsp; &emsp; - &emsp;    zip code of the city the patron lives in (required) 
 
 
 <br />
@@ -186,7 +186,7 @@ street &emsp; - &emsp;    street the new patron lives on (optional) \
 apt_num &emsp; - &emsp;   unit number if patron lives in an apartment (optional) \
 city &emsp; - &emsp;   city the new patron lives in (required) \
 state_code &emsp; - &emsp;   state the new patron lives in (required) \
-zip &emsp; &emsp; - &emsp;    zip code of the city the new patron lives in (required) \
+zip &emsp; &emsp; - &emsp;    zip code of the city the new patron lives in (required)
 
 
 <br/>
@@ -200,7 +200,7 @@ curl -X DELETE -H "Content-Type: application/json" http://localhost:8080/library
 
 Params:
 
-id &emsp;   id of the patron to be deleted (required) \
+id &emsp;   id of the patron to be deleted (required)
 
 
 <br/>
